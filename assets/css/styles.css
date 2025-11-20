@@ -1,0 +1,169 @@
+/* --------------------------------------------------
+   Spacepedia - styles.css (Tema Futuristik Space)
+----------------------------------------------------- */
+
+:root {
+    --bg-dark: #0B0F1A;
+    --bg-darker: #0F1326;
+    --text-light: #E6E6E6;
+    --text-muted: #A8B2D1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+/* --------------------------------------------------
+   NAVBAR
+----------------------------------------------------- */
+.navbar {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+}
+
+.navbar nav a {
+    color: var(--text-light);
+    margin-left: 25px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #7ab8ff;
+}
+
+/* --------------------------------------------------
+   HERO SECTION
+----------------------------------------------------- */
+.hero {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px;
+    background: linear-gradient(to bottom, #0B0F1A 20%, #101632 100%);
+    position: relative;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* --------------------------------------------------
+   OBJEK ANTARIKSA CARD GRID
+----------------------------------------------------- */
+.objek-container {
+    padding: 60px 40px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 12px var(--accent);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px var(--accent);
+}
+
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.card .tipe {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.detail-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    margin-top: 10px;
+    background: var(--accent);
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.detail-btn:hover {
+    filter: brightness(1.15);
+}
+
+/* --------------------------------------------------
+   FOOTER
+----------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 60px;
+    background: rgba(255,255,255,0.02);
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
