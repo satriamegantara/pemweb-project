@@ -1,169 +1,153 @@
-/* --------------------------------------------------
-   Spacepedia - styles.css (Tema Futuristik Space)
------------------------------------------------------ */
-
-:root {
-    --bg-dark: #0B0F1A;
-    --bg-darker: #0F1326;
-    --text-light: #E6E6E6;
-    --text-muted: #A8B2D1;
-}
+@import url('https://fonts.cdnfonts.com/css/star-jedi');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
 }
 
-body {
-    background: var(--bg-dark);
-    color: var(--text-light);
-    overflow-x: hidden;
+body, html {
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Star Jedi', sans-serif !important;
 }
 
-/* --------------------------------------------------
-   NAVBAR
------------------------------------------------------ */
-.navbar {
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    position: fixed;
-    top: 0;
-    z-index: 100;
-}
-
-.logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-}
-
-.navbar nav a {
-    color: var(--text-light);
-    margin-left: 25px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-
-.navbar nav a:hover {
-    color: #7ab8ff;
-}
-
-/* --------------------------------------------------
-   HERO SECTION
------------------------------------------------------ */
-.hero {
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 80px;
-    background: linear-gradient(to bottom, #0B0F1A 20%, #101632 100%);
+.container {
     position: relative;
-}
-
-.hero h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-}
-
-/* --------------------------------------------------
-   OBJEK ANTARIKSA CARD GRID
------------------------------------------------------ */
-.objek-container {
-    padding: 60px 40px;
-}
-
-.section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.2rem;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 14px;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 12px var(--accent);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 0 20px var(--accent);
-}
-
-.card img {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    height: 100%;
 }
 
-.card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 5px;
+/* Background galaxy */
+.bg {
+    position: absolute;
+    inset: 0;
+    background: url("../images/bg.jpg") center/cover no-repeat;
+    z-index: 1;
 }
 
-.card .tipe {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+
+@keyframes cometMove {
+    0%   { transform: translateX(0) rotate(-35deg); }
+    100% { transform: translateX(-2200px) rotate(-35deg); }
 }
 
-.detail-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    margin-top: 10px;
-    background: var(--accent);
-    color: #000;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: 0.3s;
+
+/* Posisi masing-masing planet */
+.planet-left   {position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;              /* sesuaikan ukuran */
+    z-index: 15;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
+    transition: all 0.7s ease;}
+.saturn        {position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300px;              /* sesuaikan ukuran */
+    z-index: 15;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
+    transition: all 0.7s ease;}
+.planet-right  { position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;              /* sesuaikan ukuran */
+    z-index: 15;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
+    transition: all 0.7s ease;}
+.planet-top  { position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;              /* sesuaikan ukuran */
+    z-index: 15;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
+    transition: all 0.7s ease;}
+
+/* HOVER EFEK: planet mengembang + glow lebih terang */
+.planet:hover {
+    transform: scale(1.5);
 }
 
-.detail-btn:hover {
-    filter: brightness(1.15);
-}
-
-/* --------------------------------------------------
-   FOOTER
------------------------------------------------------ */
-footer {
+/* Konten tengah */
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    margin-top: 60px;
-    background: rgba(255,255,255,0.02);
+    z-index: 20;
+    width: 90%;
 }
 
-footer p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+.title {
+    font-family: 'StarJedi', sans-serif;
+    font-size: 110px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    background: linear-gradient(90deg, #8a2be2, #00ffff, #8a2be2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(138, 43, 226, 0.6);
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 26px;
+    letter-spacing: 6px;
+    color: #ffffffcc;
+    margin-bottom: 60px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+/* Glassmorphism Button */
+.start-btn {
+    padding: 18px 70px;
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'StarJedi', sans-serif;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    letter-spacing: 3px;
+}
+
+.start-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #00ffff;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.8),
+                0 12px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(-6px) scale(1.05);
+    text-shadow: 0 0 20px #00ffff;
+}
+
+/* Responsif */
+@media (max-width: 1024px) {
+    .title { font-size: 80px; }
+    .subtitle { font-size: 20px; }
+    .planet-left { width: 280px; }
+    .planet-right { width: 320px; }
+    .saturn { width: 220px; }
+}
+
+@media (max-width: 768px) {
+    .title { font-size: 56px; letter-spacing: 5px; }
+    .subtitle { font-size: 16px; }
+    .start-btn { padding: 14px 50px; font-size: 22px; }
+    .comet { width: 180px; }
 }
