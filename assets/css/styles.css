@@ -1,4 +1,18 @@
-@import url('https://fonts.cdnfonts.com/css/star-jedi');
+@font-face {
+    font-family: "Star Jedi";
+    src: url("../fonts/StarJedi.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: local("../fonts/Ubuntu Mono Regular.woff"),
+        url("../fonts/UbuntuMono-Regular.woff") format("woff");
+}
 
 * {
     margin: 0;
@@ -6,11 +20,12 @@
     box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     overflow: hidden;
     background: #000;
-    font-family: 'Star Jedi', sans-serif !important;
+    font-family: "Star Jedi", sans-serif !important;
 }
 
 .container {
@@ -19,7 +34,6 @@ body, html {
     height: 100%;
 }
 
-/* Background galaxy */
 .bg {
     position: absolute;
     inset: 0;
@@ -27,57 +41,81 @@ body, html {
     z-index: 1;
 }
 
-
-@keyframes cometMove {
-    0%   { transform: translateX(0) rotate(-35deg); }
-    100% { transform: translateX(-2200px) rotate(-35deg); }
+.container.login-page .bg {
+    background-image: url("../images/bg.jpg");
+    background-position: center center, top center;
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+    z-index: 1;
 }
 
+.container.login-page .planet {
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
 
-/* Posisi masing-masing planet */
-.planet-left   {position: fixed;
+.planet {
+    position: fixed;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.planet1 {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 300px;              /* sesuaikan ukuran */
+    width: 300px;
     z-index: 15;
     border-radius: 0;
     box-shadow: none;
-    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
-    transition: all 0.7s ease;}
-.saturn        {position: fixed;
+    transform: none;
+    transition: all 0.7s ease;
+}
+
+.planet4 {
+    position: fixed;
     bottom: 0;
-    left: 0;
-    width: 300px;              /* sesuaikan ukuran */
+    left: -50px;
+    width: 400px;
     z-index: 15;
     border-radius: 0;
     box-shadow: none;
-    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
-    transition: all 0.7s ease;}
-.planet-right  { position: fixed;
+    transform: none;
+    transition: all 0.7s ease;
+    transform-origin: 0% 100%;
+}
+
+.planet2 {
+    position: fixed;
     bottom: 0;
     right: 0;
-    width: 300px;              /* sesuaikan ukuran */
+    width: 300px;
     z-index: 15;
     border-radius: 0;
     box-shadow: none;
-    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
-    transition: all 0.7s ease;}
-.planet-top  { position: fixed;
+    transform: none;
+    transition: all 0.7s ease;
+    transform-origin: 100% 100%;
+}
+
+.planet3 {
+    position: fixed;
     top: 0;
     right: 0;
-    width: 300px;              /* sesuaikan ukuran */
+    width: 300px;
     z-index: 15;
     border-radius: 0;
     box-shadow: none;
-    transform: none;           /* atau rotate(-10deg) kalau mau miring sedikit */
-    transition: all 0.7s ease;}
+    transform: none;
+    transition: all 0.7s ease;
+    transform-origin: 100% 0%;
+}
 
-/* HOVER EFEK: planet mengembang + glow lebih terang */
 .planet:hover {
-    transform: scale(1.5);
+    transform: scale(1.2);
 }
 
-/* Konten tengah */
 .content {
     position: absolute;
     top: 50%;
@@ -89,65 +127,303 @@ body, html {
 }
 
 .title {
-    font-family: 'StarJedi', sans-serif;
+    font-family: "Star Jedi", sans-serif;
     font-size: 110px;
     font-weight: 900;
     letter-spacing: 10px;
-    background: linear-gradient(90deg, #8a2be2, #00ffff, #8a2be2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 40px rgba(138, 43, 226, 0.6);
     margin-bottom: 20px;
+    z-index: 1;
+    color: black;
+}
+
+.inner-shadow {
+    text-shadow: -2px -2px 3px #fff, 2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(0, 0, 0, 0.5);
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .subtitle {
     font-size: 26px;
     letter-spacing: 6px;
-    color: #ffffffcc;
+    color: #000;
     margin-bottom: 60px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
 
-/* Glassmorphism Button */
 .start-btn {
     padding: 18px 70px;
     font-size: 28px;
     font-weight: 700;
-    font-family: 'StarJedi', sans-serif;
-    color: #fff;
+    font-family: "Star Jedi", sans-serif;
+    color: #000;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
     cursor: pointer;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
     transition: all 0.4s ease;
     letter-spacing: 3px;
 }
 
 .start-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: #00ffff;
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.8),
-                0 12px 40px rgba(0, 0, 0, 0.5);
-    transform: translateY(-6px) scale(1.05);
-    text-shadow: 0 0 20px #00ffff;
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #fff;
+    box-shadow: 0 0 40px #c3770c, 0 12px 40px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 20px #c3770c;
 }
 
-/* Responsif */
+.content-login {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    pointer-events: none;
+    font-family: "Ubuntu Mono Regular", monospace;
+    font-weight: lighter;
+}
+
+.login-card {
+    pointer-events: auto;
+}
+
+.login-btn {
+    padding: 8px 20px;
+    font-size: 24px;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+    font-family: "Ubuntu Mono Regular", monospace;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    box-shadow: 0 0 32px 8px rgba(255, 255, 255, 0.18),
+        0 2px 12px rgba(0, 0, 0, 0.12);
+    text-shadow: 0 0 10px #fff, 0 0 2px #fff;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+.glass-card {
+    width: 1100px;
+    max-width: calc(100% - 48px);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 46px 56px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(5px) saturate(120%);
+    -webkit-backdrop-filter: blur(5px) saturate(120%);
+    color: #111;
+    text-align: center;
+}
+
+.card-title {
+    font-family: "Star Jedi", sans-serif;
+    font-size: 48px;
+    letter-spacing: 3px;
+    margin: 0 0 18px 0;
+    color: #111;
+}
+
+.card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    width: 500px;
+    height: 420px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.field-label {
+    width: 78%;
+    text-align: left;
+    color: #fff;
+    font-size: 25px;
+    margin-left: calc((100% - 78%) / 2);
+}
+
+.card-form input[type="text"],
+.card-form input[type="password"] {
+    width: 78%;
+    background: #ffffff;
+    border: none;
+    padding: 16px 18px;
+    border-radius: 18px;
+    color: #111;
+    outline: none;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.12);
+    font-size: 16px;
+}
+
+.password-wrap {
+    position: relative;
+    width: 78%;
+}
+
+.password-wrap input {
+    width: 100%;
+    padding-right: 54px;
+}
+
+.pass-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.pass-toggle svg {
+    opacity: 0.9;
+}
+
+.card-form .start-btn {
+    margin-top: 8px;
+    width: 180px;
+    padding: 12px 24px;
+    font-size: 16px;
+    background: #000;
+    border: none;
+    color: #fff;
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.card-links {
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+}
+
+.card-links a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 500px;
+}
+
+.form-group .field-label {
+    font-size: 18px;
+    color: #fff;
+    font-weight: 400;
+    text-align: left;
+    letter-spacing: 1px;
+    margin: 0 0 2px 2px;
+}
+
+#username::placeholder,
+#password::placeholder {
+    font-family: "Ubuntu Mono Regular", monospace;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    margin: 0;
+    font-size: 18px;
+    font-family: "Ubuntu Mono Regular", monospace;
+}
+
+.form-group .password-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .glass-card {
+        width: calc(100% - 48px);
+        padding: 30px 28px;
+    }
+
+    .card-title {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 420px) {
+    .glass-card {
+        padding: 20px 16px;
+    }
+
+    .card-title {
+        font-size: 22px;
+    }
+
+    .card-form input[type="text"],
+    .card-form input[type="password"] {
+        width: 92%;
+    }
+
+    .field-label {
+        width: 92%;
+        margin-left: calc((100% - 92%) / 2);
+    }
+}
+
 @media (max-width: 1024px) {
-    .title { font-size: 80px; }
-    .subtitle { font-size: 20px; }
-    .planet-left { width: 280px; }
-    .planet-right { width: 320px; }
-    .saturn { width: 220px; }
+    .title {
+        font-size: 80px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+    }
+
+    .planet-left {
+        width: 280px;
+    }
+
+    .planet-right {
+        width: 320px;
+    }
+
+    .saturn {
+        width: 220px;
+    }
 }
 
 @media (max-width: 768px) {
-    .title { font-size: 56px; letter-spacing: 5px; }
-    .subtitle { font-size: 16px; }
-    .start-btn { padding: 14px 50px; font-size: 22px; }
-    .comet { width: 180px; }
+    .title {
+        font-size: 56px;
+        letter-spacing: 5px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .start-btn {
+        padding: 14px 50px;
+        font-size: 22px;
+    }
+
+    .comet {
+        width: 180px;
+    }
 }

@@ -1,4 +1,4 @@
 <?php
-$koneksi=mysqli_connect("localhost","root","","project
+$koneksi = mysqli_connect("localhost", "root", "", "project
 ");
 ?>
