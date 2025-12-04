@@ -176,10 +176,10 @@
     <div class="container login-page">
         <div class="bg"></div>
 
-        <img src="assets/images/planet1.png" class="planet planet1">
-        <img src="assets/images/planet4.png" class="planet planet4">
-        <img src="assets/images/planet2.png" class="planet planet2">
-        <img src="assets/images/planet3.png" class="planet planet3">
+        <img src="assets/images/bg/planet1.png" class="planet planet1">
+        <img src="assets/images/bg/planet4.png" class="planet planet4">
+        <img src="assets/images/bg/planet2.png" class="planet planet2">
+        <img src="assets/images/bg/planet3.png" class="planet planet3">
 
         <h1 class="title inner-shadow">looks like you've lost</h1>
         <a href="index.php" class="btn-go-back">Go Back</a>

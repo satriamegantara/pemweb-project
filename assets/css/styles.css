@@ -1,429 +1,477 @@
 @font-face {
-    font-family: "Star Jedi";
-    src: url("../fonts/StarJedi.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Star Jedi";
+  src: url("../fonts/StarJedi.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Ubuntu Mono Regular";
-    font-style: normal;
-    font-weight: normal;
-    src: local("../fonts/Ubuntu Mono Regular.woff"),
-        url("../fonts/UbuntuMono-Regular.woff") format("woff");
+  font-family: "Ubuntu Mono Regular";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    local("../fonts/Ubuntu Mono Regular.woff"),
+    url("../fonts/UbuntuMono-Regular.woff") format("woff");
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body,
 html {
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: "Star Jedi", sans-serif !important;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: "Star Jedi", sans-serif !important;
 }
 
 .container {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .bg {
-    position: absolute;
-    inset: 0;
-    background: url("../images/bg.jpg") center/cover no-repeat;
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: url("../images/bg/bg.jpg") center/cover no-repeat;
+  z-index: 1;
 }
 
 .container.login-page .bg {
-    background-image: url("../images/bg.jpg");
-    background-position: center center, top center;
-    background-size: cover, contain;
-    background-repeat: no-repeat, no-repeat;
-    z-index: 1;
+  background-image: url("../images/bg/bg.jpg");
+  background-position:
+    center center,
+    top center;
+  background-size: cover, contain;
+  background-repeat: no-repeat, no-repeat;
+  z-index: 1;
 }
 
 .container.login-page .planet {
-    display: block;
-    pointer-events: none;
-    user-select: none;
+  display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .planet {
-    position: fixed;
-    transition: transform 0.5s ease;
-    cursor: pointer;
+  position: fixed;
+  transition: transform 0.5s ease;
+  cursor: pointer;
 }
 
 .planet1 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300px;
-    z-index: 15;
-    border-radius: 0;
-    box-shadow: none;
-    transform: none;
-    transition: all 0.7s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  z-index: 15;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  transition: all 0.7s ease;
 }
 
 .planet4 {
-    position: fixed;
-    bottom: 0;
-    left: -50px;
-    width: 400px;
-    z-index: 15;
-    border-radius: 0;
-    box-shadow: none;
-    transform: none;
-    transition: all 0.7s ease;
-    transform-origin: 0% 100%;
+  position: fixed;
+  bottom: 0;
+  left: -50px;
+  width: 400px;
+  z-index: 15;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  transition: all 0.7s ease;
+  transform-origin: 0% 100%;
 }
 
 .planet2 {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 300px;
-    z-index: 15;
-    border-radius: 0;
-    box-shadow: none;
-    transform: none;
-    transition: all 0.7s ease;
-    transform-origin: 100% 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  z-index: 15;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  transition: all 0.7s ease;
+  transform-origin: 100% 100%;
 }
 
 .planet3 {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px;
-    z-index: 15;
-    border-radius: 0;
-    box-shadow: none;
-    transform: none;
-    transition: all 0.7s ease;
-    transform-origin: 100% 0%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  z-index: 15;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  transition: all 0.7s ease;
+  transform-origin: 100% 0%;
 }
 
 .planet:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 20;
-    width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 20;
+  width: 90%;
 }
 
 .title {
-    font-family: "Star Jedi", sans-serif;
-    font-size: 110px;
-    font-weight: 900;
-    letter-spacing: 10px;
-    margin-bottom: 20px;
-    z-index: 1;
-    color: black;
+  font-family: "Star Jedi", sans-serif;
+  font-size: 110px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  margin-bottom: 20px;
+  z-index: 1;
+  color: black;
 }
 
 .inner-shadow {
-    text-shadow: -2px -2px 3px #fff, 2px 2px 4px rgba(0, 0, 0, 0.8),
-        0 0 10px rgba(0, 0, 0, 0.5);
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .subtitle {
-    font-size: 26px;
-    letter-spacing: 6px;
-    color: #000;
-    margin-bottom: 60px;
+  font-family: "Star Jedi", sans-serif;
+  font-size: 26px;
+  letter-spacing: 6px;
+  color: #000;
+  margin-bottom: 60px;
 }
 
 .start-btn {
-    padding: 18px 70px;
-    font-size: 28px;
-    font-weight: 700;
-    font-family: "Star Jedi", sans-serif;
-    color: #000;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    border-radius: 50px;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.4s ease;
-    letter-spacing: 3px;
+  padding: 18px 70px;
+  font-size: 28px;
+  font-family: "Star Jedi", sans-serif;
+  color: #000;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  letter-spacing: 3px;
 }
 
 .start-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: #fff;
-    box-shadow: 0 0 40px #c3770c, 0 12px 40px rgba(0, 0, 0, 0.5);
-    text-shadow: 0 0 20px #c3770c;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+  box-shadow:
+    0 0 40px #c3770c,
+    0 12px 40px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 20px #c3770c;
 }
 
 .content-login {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 25;
-    pointer-events: none;
-    font-family: "Ubuntu Mono Regular", monospace;
-    font-weight: lighter;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  pointer-events: none;
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-weight: lighter;
+}
+
+.content-dashboard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .login-card {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 
 .login-btn {
-    padding: 8px 20px;
-    font-size: 24px;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.1);
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50px;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.4s ease;
-    font-family: "Ubuntu Mono Regular", monospace;
+  padding: 8px 20px;
+  font-size: 24px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .login-btn:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border: 2px solid rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    box-shadow: 0 0 32px 8px rgba(255, 255, 255, 0.18),
-        0 2px 12px rgba(0, 0, 0, 0.12);
-    text-shadow: 0 0 10px #fff, 0 0 2px #fff;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow:
+    0 0 32px 8px rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.12);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 2px #fff;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
 }
 
 .glass-card {
-    width: 1100px;
-    max-width: calc(100% - 48px);
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
-    padding: 46px 56px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(5px) saturate(120%);
-    -webkit-backdrop-filter: blur(5px) saturate(120%);
-    color: #111;
-    text-align: center;
+  width: 1100px;
+  max-width: calc(100% - 48px);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 46px 56px;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(5px) saturate(120%);
+  -webkit-backdrop-filter: blur(5px) saturate(120%);
+  color: #111;
+  text-align: center;
 }
 
 .card-title {
-    font-family: "Star Jedi", sans-serif;
-    font-size: 48px;
-    letter-spacing: 3px;
-    margin: 0 0 18px 0;
-    color: #111;
+  font-family: "Star Jedi", sans-serif;
+  font-size: 48px;
+  letter-spacing: 3px;
+  margin: 0 0 18px 0;
+  color: #111;
 }
 
 .card-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    align-items: center;
-    width: 500px;
-    height: 420px;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  width: 500px;
+  height: 420px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
 }
 
 .field-label {
-    width: 78%;
-    text-align: left;
-    color: #fff;
-    font-size: 25px;
-    margin-left: calc((100% - 78%) / 2);
+  width: 78%;
+  text-align: left;
+  color: #fff;
+  font-size: 25px;
+  margin-left: calc((100% - 78%) / 2);
 }
 
 .card-form input[type="text"],
 .card-form input[type="password"] {
-    width: 78%;
-    background: #ffffff;
-    border: none;
-    padding: 16px 18px;
-    border-radius: 18px;
-    color: #111;
-    outline: none;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.12);
-    font-size: 16px;
+  width: 78%;
+  background: #ffffff;
+  border: none;
+  padding: 16px 18px;
+  border-radius: 18px;
+  color: #111;
+  outline: none;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.12);
+  font-size: 16px;
 }
 
 .password-wrap {
-    position: relative;
-    width: 78%;
+  position: relative;
+  width: 78%;
 }
 
 .password-wrap input {
-    width: 100%;
-    padding-right: 54px;
+  width: 100%;
+  padding-right: 54px;
 }
 
 .pass-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    padding: 6px;
-    cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
 }
 
 .pass-toggle svg {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .card-form .start-btn {
-    margin-top: 8px;
-    width: 180px;
-    padding: 12px 24px;
-    font-size: 16px;
-    background: #000;
-    border: none;
-    color: #fff;
-    border-radius: 28px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  margin-top: 8px;
+  width: 180px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background: #000;
+  border: none;
+  color: #fff;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 .card-links {
-    margin-top: 18px;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 20px;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
 }
 
 .card-links a {
-    color: #fff;
-    text-decoration: underline;
+  color: #fff;
+  text-decoration: underline;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 500px;
 }
 
 .form-group .field-label {
-    font-size: 18px;
-    color: #fff;
-    font-weight: 400;
-    text-align: left;
-    letter-spacing: 1px;
-    margin: 0 0 2px 2px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
+  text-align: left;
+  letter-spacing: 1px;
+  margin: 0 0 2px 2px;
 }
 
 #username::placeholder,
 #password::placeholder {
-    font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .form-group input[type="text"],
 .form-group input[type="password"] {
-    width: 100%;
-    margin: 0;
-    font-size: 18px;
-    font-family: "Ubuntu Mono Regular", monospace;
+  width: 100%;
+  margin: 0;
+  font-size: 18px;
+  font-family: "Ubuntu Mono Regular", monospace;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
 }
 
+.popup-content {
+  background: #1c2746;
+  padding: 20px 30px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.close-btn {
+  margin-top: 10px;
+  background: crimson;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
 .form-group .password-wrap {
-    width: 100%;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 900px) {
-    .glass-card {
-        width: calc(100% - 48px);
-        padding: 30px 28px;
-    }
+  .glass-card {
+    width: calc(100% - 48px);
+    padding: 30px 28px;
+  }
 
-    .card-title {
-        font-size: 34px;
-    }
+  .card-title {
+    font-size: 34px;
+  }
 }
 
 @media (max-width: 420px) {
-    .glass-card {
-        padding: 20px 16px;
-    }
+  .glass-card {
+    padding: 20px 16px;
+  }
 
-    .card-title {
-        font-size: 22px;
-    }
+  .card-title {
+    font-size: 22px;
+  }
 
-    .card-form input[type="text"],
-    .card-form input[type="password"] {
-        width: 92%;
-    }
+  .card-form input[type="text"],
+  .card-form input[type="password"] {
+    width: 92%;
+  }
 
-    .field-label {
-        width: 92%;
-        margin-left: calc((100% - 92%) / 2);
-    }
+  .field-label {
+    width: 92%;
+    margin-left: calc((100% - 92%) / 2);
+  }
 }
 
 @media (max-width: 1024px) {
-    .title {
-        font-size: 80px;
-    }
+  .title {
+    font-size: 80px;
+  }
 
-    .subtitle {
-        font-size: 20px;
-    }
+  .subtitle {
+    font-size: 20px;
+  }
 
-    .planet-left {
-        width: 280px;
-    }
+  .planet-left {
+    width: 280px;
+  }
 
-    .planet-right {
-        width: 320px;
-    }
+  .planet-right {
+    width: 320px;
+  }
 
-    .saturn {
-        width: 220px;
-    }
+  .saturn {
+    width: 220px;
+  }
 }
 
 @media (max-width: 768px) {
-    .title {
-        font-size: 56px;
-        letter-spacing: 5px;
-    }
+  .title {
+    font-size: 56px;
+    letter-spacing: 5px;
+  }
 
-    .subtitle {
-        font-size: 16px;
-    }
+  .subtitle {
+    font-size: 16px;
+  }
 
-    .start-btn {
-        padding: 14px 50px;
-        font-size: 22px;
-    }
+  .start-btn {
+    padding: 14px 50px;
+    font-size: 22px;
+  }
 
-    .comet {
-        width: 180px;
-    }
+  .comet {
+    width: 180px;
+  }
 }
