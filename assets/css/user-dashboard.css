@@ -1,0 +1,162 @@
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 20px;
+  font-size: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow:
+    0 0 32px 8px rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.12);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 2px #fff;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+.planet-gallery {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 70px 40px 210px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.welcome-text {
+  font-family: "Star Jedi", sans-serif;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: 8px;
+  z-index: 10;
+  animation: glow 2s ease-in-out infinite alternate;
+  width: 100%;
+  text-align: center;
+}
+
+.planet-item {
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  flex: 0 1 auto;
+  margin: 0 30px;
+}
+
+.planet-item img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  transition: all 0.4s ease;
+  filter: brightness(0.7);
+}
+
+.planet-item:hover img {
+  transform: scale(1.2) translateY(-15px);
+  filter: brightness(1) drop-shadow(0 0 30px rgba(255, 255, 255, 0.7));
+}
+
+.planet-caption {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  margin-top: 20px;
+  letter-spacing: 3px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.planet-item:hover .planet-caption {
+  color: #fff;
+  font-size: 22px;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 1);
+  letter-spacing: 5px;
+  transform: translateY(-1px);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 1024px) {
+  .planet-gallery {
+    padding: 40px;
+  }
+
+  .planet-item img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .planet-caption {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .planet-gallery {
+    padding: 20px;
+  }
+
+  .planet-item img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .planet-caption {
+    font-size: 12px;
+  }
+
+  .planet-item:hover .planet-caption {
+    font-size: 14px;
+  }
+
+  .planet-item:nth-child(1) {
+    left: 5%;
+    top: 10%;
+  }
+
+  .planet-item:nth-child(2) {
+    left: 20%;
+    top: 30%;
+  }
+
+  .planet-item:nth-child(3) {
+    top: 45%;
+  }
+
+  .planet-item:nth-child(4) {
+    right: 20%;
+    top: 30%;
+  }
+
+  .planet-item:nth-child(5) {
+    right: 5%;
+    top: 10%;
+  }
+}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/icons/thumbnail.png" type="image/png">
-    <title>Galaxy Explorer</title>
+    <title>Galaxy Explorer - Access Denied</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
         .astronot {
@@ -137,6 +137,16 @@
             font-size: 50px;
         }
 
+        .subtitle.inner-shadow {
+            position: absolute;
+            left: 50%;
+            top: calc(50% + 60px);
+            transform: translateX(-50%);
+            z-index: 20;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
         .btn-go-back {
             position: absolute;
             left: 50%;
@@ -144,30 +154,28 @@
             transform: translateX(-50%);
             z-index: 120;
             display: inline-block;
-            padding: 8px 20px;
-            font-size: 24px;
-            color: #fff;
+            padding: 16px 40px;
+            font-size: 18px;
+            color: #000;
             text-decoration: none;
             letter-spacing: 0.5px;
             background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
             border-radius: 50px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             cursor: pointer;
             transition: all 0.4s ease;
-            font-family: 'Ubuntu Mono Regular', monospace;
+            font-family: 'Star Jedi', sans-serif;
         }
 
         .btn-go-back:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border: 2px solid rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            box-shadow: 0 0 32px 8px rgba(255, 255, 255, 0.18), 0 2px 12px rgba(0, 0, 0, 0.12);
-            text-shadow: 0 0 10px #fff, 0 0 2px #fff;
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            transition: all 0.3s cubic-bezier(.4, 2, .6, 1);
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #fff;
+            box-shadow:
+                0 0 40px #c3770c,
+                0 12px 40px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 20px #c3770c;
         }
     </style>
 </head>
@@ -181,8 +189,9 @@
         <img src="assets/images/bg/planet2.png" class="planet planet2">
         <img src="assets/images/bg/planet3.png" class="planet planet3">
 
-        <h1 class="title inner-shadow">looks like you've lost</h1>
-        <a href="index.php" class="btn-go-back">Go Back</a>
+        <h1 class="title inner-shadow">Access Denied</h1>
+        <p class="subtitle inner-shadow">Please make sure you are logged in with the correct account.</p>
+        <a href="index.php" class="btn-go-back inner-shadow">Back to Home</a>
     </div>
 
     <img src="assets/images/astronot.png" class="astronot">

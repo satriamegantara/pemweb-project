@@ -10,9 +10,7 @@
   font-family: "Ubuntu Mono Regular";
   font-style: normal;
   font-weight: normal;
-  src:
-    local("../fonts/Ubuntu Mono Regular.woff"),
-    url("../fonts/UbuntuMono-Regular.woff") format("woff");
+  src: local("../fonts/Ubuntu Mono Regular.woff");
 }
 
 * {
@@ -39,7 +37,7 @@ html {
   position: absolute;
   inset: 0;
   background: url("../images/bg/bg.jpg") center/cover no-repeat;
-  z-index: 1;
+  z-index: 0;
 }
 
 .container.login-page .bg {
@@ -52,6 +50,10 @@ html {
   z-index: 1;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+/* ========== Decorative Planets ========== */
 .container.login-page .planet {
   display: block;
   pointer-events: none;
@@ -234,6 +236,11 @@ html {
   transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
 .glass-card {
   width: 1100px;
   max-width: calc(100% - 48px);
@@ -358,17 +365,20 @@ html {
 }
 
 #username::placeholder,
-#password::placeholder {
+#password::placeholder,
+#email::placeholder {
   font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="email"] {
   width: 100%;
   margin: 0;
   font-size: 18px;
   font-family: "Ubuntu Mono Regular", monospace;
 }
+/* ========== Popup Styles ========== */
 .popup {
   position: fixed;
   top: 0;

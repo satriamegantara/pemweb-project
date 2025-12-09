@@ -1,0 +1,451 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: "Star Jedi", sans-serif;
+  overflow: hidden !important;
+}
+
+.container.login-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.container.login-page .bg {
+  position: absolute;
+  inset: 0;
+  background: url("../images/bg/bg.jpg") center/cover no-repeat;
+  z-index: 1;
+}
+
+.profile-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 40px;
+  z-index: 25;
+  overflow: hidden;
+}
+
+.back-to-dashboard {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 20px;
+  font-size: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.back-to-dashboard:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow:
+    0 0 32px 8px rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.12);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 2px #fff;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+.back-to-dashboard i,
+.logout-btn i {
+  font-size: 16px;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 20px;
+  font-size: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow:
+    0 0 32px 8px rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.12);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 2px #fff;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========== Profile Card ========== */
+.profile-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-radius: 20px;
+  padding: 20px 35px;
+  max-width: 650px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 30;
+  margin: 70px 0 15px 0;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  color: #fff;
+  margin: 0 auto 10px;
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+  border: 3px solid rgba(212, 175, 55, 0.3);
+}
+
+.profile-title {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+}
+
+.profile-subtitle {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.profile-item:last-child {
+  border-bottom: none;
+}
+
+.profile-label {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.profile-value {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+.profile-value.mono-value {
+  font-family: "Ubuntu Mono Regular", monospace;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.profile-btn {
+  flex: 1;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-weight: normal;
+  text-decoration: none;
+  text-align: center;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Ubuntu Mono Regular", monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* ========== Edit Profile Form ========== */
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group-edit .profile-label {
+  margin-bottom: 0;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.edit-input:focus {
+  background: rgba(255, 255, 255, 1);
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 5px 0;
+}
+
+.section-title {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 2px 0;
+}
+
+.alert {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 12px;
+  text-align: center;
+}
+
+.alert-success {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  color: #a5d6a7;
+}
+
+.alert-error {
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.4);
+  color: #ef9a9a;
+}
+
+/* ========== Notification Popup ========== */
+.notification-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  animation: slideDown 0.5s ease;
+}
+
+.notification-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.notification-icon {
+  font-size: 20px;
+  font-weight: bold;
+  color: #d4af37;
+}
+
+.notification-text {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.notification-popup.fade-out {
+  animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+  to {
+    top: 20px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    top: 20px;
+    opacity: 1;
+  }
+  to {
+    top: -100px;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 40px 20px;
+  }
+
+  .profile-card {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+
+  .profile-title {
+    font-size: 28px;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+  }
+
+  .profile-value {
+    font-size: 16px;
+  }
+
+  .back-to-dashboard,
+  .logout-btn {
+    padding: 6px 16px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 20px 15px;
+    border-radius: 16px;
+  }
+
+  .profile-title {
+    font-size: 24px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-btn {
+    padding: 12px 20px;
+  }
+}

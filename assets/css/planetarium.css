@@ -1,0 +1,388 @@
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 20px;
+  font-size: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow:
+    0 0 32px 8px rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.12);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 2px #fff;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.planetarium-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 60px 60px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.planetarium-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.planetarium-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.planetarium-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.planetarium-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.page-title {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 56px;
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow:
+      -2px -2px 3px #fff,
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  to {
+    text-shadow:
+      -2px -2px 3px #fff,
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 10px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.page-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+  font-family: "Ubuntu Mono Regular", monospace;
+}
+
+.planet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.planet-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.planet-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.planet-image-wrapper {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.planet-img {
+  max-width: 180px;
+  max-height: 180px;
+  object-fit: contain;
+  transition: all 0.4s ease;
+  filter: brightness(0.8);
+}
+
+.planet-card:hover .planet-img {
+  transform: scale(1.15);
+  filter: brightness(1) drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
+}
+
+.planet-name {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+}
+
+.planet-type {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  position: relative;
+  max-width: 900px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  line-height: 1;
+  font-family: Arial, sans-serif;
+}
+
+.close-modal:hover {
+  color: #ddd;
+  transform: scale(1.2);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.modal-body {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.modal-left {
+  flex: 0 0 300px;
+  text-align: center;
+}
+
+.modal-planet-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
+}
+
+.modal-planet-name {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 36px;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+  text-transform: lowercase;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.modal-planet-type {
+  font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+.modal-right {
+  flex: 1;
+}
+
+.planet-specs {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-family: "Ubuntu Mono Regular", monospace;
+}
+
+.spec-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.spec-value {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+}
+
+.planet-description,
+.planet-facts {
+  margin-bottom: 25px;
+}
+
+.planet-description h3,
+.planet-facts h3 {
+  font-family: "Star Jedi", sans-serif;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+}
+
+.planet-description p {
+  font-family: "Ubuntu Mono Regular", monospace;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.planet-facts ul {
+  list-style: none;
+  padding: 0;
+}
+
+.planet-facts li {
+  font-family: "Ubuntu Mono Regular", monospace;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.planet-facts li:before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .planetarium-container {
+    padding: 80px 30px 40px;
+  }
+
+  .page-title {
+    font-size: 36px;
+  }
+
+  .planet-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .modal-left {
+    flex: 1;
+  }
+
+  .modal-planet-name {
+    font-size: 28px;
+  }
+
+  .spec-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

@@ -39,6 +39,7 @@ if (isset($_POST["login"])) {
     <link rel="icon" href="../assets/icons/thumbnail.png" type="image/png">
     <title>Galaxy Explorer</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/user-profile.css">
 </head>
 
 <body>
@@ -51,6 +52,24 @@ if (isset($_POST["login"])) {
         <img src="../assets/images/bg/planet3.png" class="planet planet3">
     </div>
     <div class="content-login">
+        <?php if (!empty($error)): ?>
+            <div class="notification-popup" id="loginNotif">
+                <div class="notification-content">
+                    <span class="notification-icon">&#9888;</span>
+                    <span class="notification-text"><?php echo $error; ?></span>
+                </div>
+            </div>
+            <script>
+                setTimeout(function () {
+                    var notif = document.getElementById('loginNotif');
+                    if (notif) notif.classList.add('fade-out');
+                }, 2500);
+                setTimeout(function () {
+                    var notif = document.getElementById('loginNotif');
+                    if (notif) notif.style.display = 'none';
+                }, 3000);
+            </script>
+        <?php endif; ?>
         <div class="login-card glass-card">
             <h1 class="card-title inner-shadow">login</h1>
             <form class="card-form" action="" method="POST">

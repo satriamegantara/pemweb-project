@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+
+if ($_SESSION['role'] !== 'user') {
+    header("Location: ../error.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -7,7 +20,7 @@
     <link rel="icon" href="../assets/icons/thumbnail.png" type="image/png">
     <title>Galaxy Explorer</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/carousel.css">
+    <link rel="stylesheet" href="../assets/css/user-dashboard.css">
 </head>
 
 <body>
@@ -15,35 +28,34 @@
         <div class="bg"></div>
     </div>
     <div class="content-dashboard">
-        <div class="carousel-wrapper">
-            <div class="carousel-track">
-                <div class="carousel-item" data-name="Mercury">
-                    <img src="../assets/images/planets/mercury.png" class="card-carousel" alt="Mercury">
-                    <span class="planet-caption">Mercury</span>
-                </div>
-                <div class="carousel-item" data-name="Venus">
-                    <img src="../assets/images/planets/venus.png" class="card-carousel" alt="Venus">
-                    <span class="planet-caption">Venus</span>
-                </div>
-                <div class="carousel-item" data-name="Earth">
-                    <img src="../assets/images/planets/earth.png" class="card-carousel" alt="Earth">
-                    <span class="planet-caption">Home</span>
-                </div>
-                <div class="carousel-item" data-name="Jupiter">
-                    <img src="../assets/images/planets/jupyter.png" class="card-carousel" alt="Jupiter">
-                    <span class="planet-caption">Jupiter</span>
-                </div>
-                <div class="carousel-item" data-name="Saturn">
-                    <img src="../assets/images/planets/saturn.png" class="card-carousel" alt="Saturn" style="width: ;">
-                    <span class="planet-caption">Saturn</span>
-                </div>
-                <div class="carousel-item" data-name="Neptune">
-                    <img src="../assets/images/planets/neptune.png" class="card-carousel" alt="Neptune">
-                    <span class="planet-caption">Neptune</span>
-                </div>
+        <a href="../auth/logout.php" class="logout-btn">
+            <img src="../assets/icons/ui/logout.png" class="icon" alt="Logout">Logout
+        </a>
+        <div class="planet-gallery">
+            <div class="welcome-text inner-shadow">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+            </div>
+            <div class="planet-item" data-name="Mercury">
+                <img src="../assets/images/planets/mercury.png" alt="Mercury">
+                <span class="planet-caption">History</span>
+            </div>
+            <div class="planet-item" onclick="window.location.href='planetarium.php'" data-name="Venus">
+                <img src="../assets/images/planets/venus.png" alt="Venus">
+                <span class="planet-caption">Planetarium</span>
+            </div>
+            <div class="planet-item" onclick="window.location.href='profile.php'" data-name="Earth">
+                <img src="../assets/images/planets/earth.png" alt="Earth">
+                <span class="planet-caption">Profile</span>
+            </div>
+            <div class="planet-item" data-name="Jupiter">
+                <img src="../assets/images/planets/jupyter.png" alt="Jupiter">
+                <span class="planet-caption">Achievement</span>
+            </div>
+            <div class="planet-item" data-name="Neptune">
+                <img src="../assets/images/planets/neptune.png" alt="Neptune">
+                <span class="planet-caption">Quiz</span>
             </div>
         </div>
-        <script src="../assets/js/carousel.js"></script>
+    </div>
 </body>
 
 </html>
