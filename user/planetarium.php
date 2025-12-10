@@ -11,7 +11,6 @@ if ($_SESSION['role'] !== 'user') {
     exit;
 }
 
-// Data planet
 $planets = [
     [
         'name' => 'Sun',
@@ -20,11 +19,14 @@ $planets = [
         'diameter' => '1,391,000 km',
         'mass' => '1.989 × 10³⁰ kg',
         'temperature' => '5,500°C (surface)',
-        'description' => 'The Sun is the star at the center of our Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core.',
+        'orbit_period' => '-',
+        'moons' => 'N/A',
+        'description' => 'Matahari adalah bintang di pusat Tata Surya kita. Merupakan bola plasma panas yang dipanaskan oleh reaksi fusi nuklir di intinya, Matahari adalah sumber energi utama bagi semua kehidupan di Bumi.',
         'facts' => [
-            'Contains 99.86% of the Solar System\'s mass',
-            'Light from the Sun takes about 8 minutes to reach Earth',
-            'The Sun is about 4.6 billion years old'
+            'Mengandung 99.86% massa Tata Surya',
+            'Cahaya dari Matahari membutuhkan waktu sekitar 8 menit untuk mencapai Bumi',
+            'Umur Matahari sekitar 4.6 miliar tahun',
+            'Diameter Matahari sekitar 109 kali lebih besar dari Bumi'
         ]
     ],
     [
@@ -35,11 +37,14 @@ $planets = [
         'mass' => '3.285 × 10²³ kg',
         'distance' => '57.9 million km from Sun',
         'temperature' => '-173°C to 427°C',
-        'description' => 'Mercury is the smallest planet in our Solar System and the closest to the Sun. It has a very thin atmosphere and extreme temperature variations.',
+        'orbit_period' => '88 Earth days',
+        'moons' => 'None',
+        'description' => 'Mercury adalah planet terkecil dan terdekat dengan Matahari dalam Tata Surya kita. Dengan permukaan yang dipenuhi kawah dan atmosfer yang sangat tipis, Mercury mengalami variasi suhu ekstrem yang merupakan yang terbesar di antara semua planet.',
         'facts' => [
-            'One day on Mercury lasts 59 Earth days',
-            'Named after the Roman messenger god',
-            'Has a heavily cratered surface similar to our Moon'
+            'Satu hari di Mercury berlangsung 59 hari Bumi',
+            'Dinamai sesuai dewa pesan Romawi, Mercury',
+            'Memiliki inti besi yang sangat besar dibandingkan dengan ukurannya',
+            'Kecepatan orbitalnya adalah yang tercepat di Tata Surya'
         ]
     ],
     [
@@ -50,11 +55,14 @@ $planets = [
         'mass' => '4.867 × 10²⁴ kg',
         'distance' => '108.2 million km from Sun',
         'temperature' => '462°C average',
-        'description' => 'Venus is the second planet from the Sun and the hottest planet in our Solar System due to its thick atmosphere of carbon dioxide.',
+        'orbit_period' => '225 Earth days',
+        'moons' => 'None',
+        'description' => 'Venus adalah planet tergoyang dengan suhu permukaan tertinggi di Tata Surya. Dengan atmosfer yang sangat tebal terdiri dari karbon dioksida dan asam sulfat, Venus menciptakan efek rumah kaca yang ekstrem. Planet ini berputar mundur dibandingkan dengan planet lainnya.',
         'facts' => [
-            'Venus rotates backwards compared to other planets',
-            'A day on Venus is longer than its year',
-            'Often called Earth\'s "sister planet" due to similar size'
+            'Venus berputar mundur (rotasi retrograde) dibandingkan planet lain',
+            'Satu hari di Venus lebih panjang daripada tahunnya',
+            'Sering disebut "saudara kembar Earth" karena ukuran yang serupa',
+            'Tekanan atmosfernya 92 kali lebih besar dari Bumi'
         ]
     ],
     [
@@ -65,41 +73,50 @@ $planets = [
         'mass' => '5.972 × 10²⁴ kg',
         'distance' => '149.6 million km from Sun',
         'temperature' => '15°C average',
-        'description' => 'Earth is our home planet, the only known planet with life. It has liquid water, a protective atmosphere, and a diverse ecosystem.',
+        'orbit_period' => '365.25 days',
+        'moons' => '1 (The Moon)',
+        'description' => 'Bumi adalah planet ketiga dari Matahari dan satu-satunya yang diketahui memiliki kehidupan. Dengan air cair, atmosfer pelindung, dan ekosistem yang beragam, Bumi adalah rumah bagi miliaran makhluk hidup.',
         'facts' => [
-            'About 71% of Earth\'s surface is covered with water',
-            'Has one natural satellite: the Moon',
-            'Takes 365.25 days to orbit the Sun'
+            'Sekitar 71% permukaan Bumi ditutupi air',
+            'Memiliki satu satelit alami: Bulan',
+            'Rotasi Bumi memperlambat sekitar 1,7 milidetik per abad',
+            'Memiliki medan magnet yang melindungi dari radiasi Matahari'
         ]
     ],
     [
-        'name' => 'Neptune',
-        'image' => 'neptune.png',
-        'type' => 'Ice Giant',
-        'diameter' => '49,244 km',
-        'mass' => '1.024 × 10²⁶ kg',
-        'distance' => '4.5 billion km from Sun',
-        'temperature' => '-214°C average',
-        'description' => 'Neptune is the eighth and farthest planet from the Sun. It is an ice giant with the strongest winds in the Solar System.',
+        'name' => 'Mars',
+        'image' => 'mars.png',
+        'type' => 'Terrestrial Planet',
+        'diameter' => '6,779 km',
+        'mass' => '6.417 × 10²³ kg',
+        'distance' => '227.9 million km from Sun',
+        'temperature' => '-65°C average',
+        'orbit_period' => '687 Earth days',
+        'moons' => '2 (Phobos & Deimos)',
+        'description' => 'Mars adalah planet keempat dari Matahari dan dikenal sebagai "Planet Merah" karena permukaan yang berkarat. Dengan atmosfer tipis dan bukti air di masa lalu, Mars menjadi target utama eksplorasi manusia di masa depan.',
         'facts' => [
-            'Has 14 known moons, the largest is Triton',
-            'Wind speeds can reach up to 2,100 km/h',
-            'Takes 165 Earth years to complete one orbit'
+            'Mars memiliki dua bulan kecil: Phobos dan Deimos',
+            'Gunung Olympus Mons adalah gunung berapi terbesar di Tata Surya',
+            'Valles Marineris adalah ngarai terbesar di Tata Surya',
+            'Satu tahun di Mars adalah 687 hari Bumi'
         ]
     ],
     [
         'name' => 'Jupiter',
-        'image' => 'jupyter.png',
+        'image' => 'jupiter.png',
         'type' => 'Gas Giant',
         'diameter' => '139,820 km',
         'mass' => '1.898 × 10²⁷ kg',
         'distance' => '778.5 million km from Sun',
         'temperature' => '-108°C average',
-        'description' => 'Jupiter is the largest planet in our Solar System. It is a gas giant with a famous Great Red Spot, a giant storm.',
+        'orbit_period' => '12 Earth years',
+        'moons' => '95 (known)',
+        'description' => 'Jupiter adalah planet terbesar dalam Tata Surya kami. Sebagai gas giant, Jupiter terdiri dari hidrogen dan helium dengan inti berbatu. Fitur terkenalnya adalah Great Red Spot, sebuah badai raksasa yang berlangsung lebih lama dari usia Bumi.',
         'facts' => [
-            'Has at least 79 known moons',
-            'The Great Red Spot is a storm larger than Earth',
-            'Jupiter has faint rings made of dust particles'
+            'Jupiter memiliki setidaknya 95 bulan yang diketahui',
+            'Great Red Spot adalah badai yang lebih besar dari Bumi',
+            'Hari di Jupiter hanya berlangsung 10 jam',
+            'Jupiter memiliki sistem cincin yang lemah dan medan magnetik yang sangat kuat'
         ]
     ],
     [
@@ -110,11 +127,50 @@ $planets = [
         'mass' => '5.683 × 10²⁶ kg',
         'distance' => '1.4 billion km from Sun',
         'temperature' => '-138°C average',
-        'description' => 'Saturn is famous for its spectacular ring system made of ice and rock particles. It is the second-largest planet in our Solar System.',
+        'orbit_period' => '29 Earth years',
+        'moons' => '146 (known)',
+        'description' => 'Saturn terkenal karena sistem cincin spektakulernya yang terbuat dari es dan partikel batu. Sebagai gas giant kedua terbesar, Saturn memiliki komposisi serupa dengan Jupiter tetapi dengan kepadatan yang jauh lebih rendah.',
         'facts' => [
-            'Has the most extensive ring system of any planet',
-            'Saturn has at least 82 known moons',
-            'Could float in water due to its low density'
+            'Saturn memiliki sistem cincin paling ekstensif dari semua planet',
+            'Saturn memiliki setidaknya 146 bulan yang diketahui',
+            'Bisa mengapung di air karena kepadatannya yang rendah',
+            'Kecepatan angin di Saturn dapat mencapai 1,800 km/jam'
+        ]
+    ],
+    [
+        'name' => 'Uranus',
+        'image' => 'uranus.png',
+        'type' => 'Ice Giant',
+        'diameter' => '50,724 km',
+        'mass' => '8.681 × 10²⁵ kg',
+        'distance' => '2.9 billion km from Sun',
+        'temperature' => '-197°C average',
+        'orbit_period' => '84 Earth years',
+        'moons' => '28 (known)',
+        'description' => 'Uranus adalah planet ketujuh dari Matahari dan merupakan ice giant dengan warna biru kehijauan. Planet ini memiliki karakteristik unik yaitu rotasi aksialnya hampir 98 derajat, membuatnya berputar pada sisinya.',
+        'facts' => [
+            'Uranus berputar pada sisinya (rotasi 98 derajat)',
+            'Memiliki 28 bulan yang diketahui, termasuk Miranda dan Titania',
+            'Atmosfer Uranus terdiri dari hidrogen, helium, dan methane',
+            'Uranus ditemukan pada tahun 1781, planet pertama yang ditemukan di era modern'
+        ]
+    ],
+    [
+        'name' => 'Neptune',
+        'image' => 'neptune.png',
+        'type' => 'Ice Giant',
+        'diameter' => '49,244 km',
+        'mass' => '1.024 × 10²⁶ kg',
+        'distance' => '4.5 billion km from Sun',
+        'temperature' => '-214°C average',
+        'orbit_period' => '165 Earth years',
+        'moons' => '16 (known)',
+        'description' => 'Neptune adalah planet kedelapan dan terjauh dari Matahari dalam Tata Surya kita. Merupakan ice giant dengan angin tercepat di Tata Surya, Neptune memiliki warna biru yang indah karena kandungan methane di atmosfernya.',
+        'facts' => [
+            'Neptune memiliki 16 bulan yang diketahui, terbesar adalah Triton',
+            'Kecepatan angin di Neptune dapat mencapai 2,100 km/jam',
+            'Membutuhkan 165 tahun Bumi untuk mengorbit Matahari sekali',
+            'Neptune ditemukan secara matematis sebelum observasi visual'
         ]
     ],
     [
@@ -123,13 +179,16 @@ $planets = [
         'type' => 'Dwarf Planet',
         'diameter' => '~2,400 km (estimated)',
         'mass' => 'Unknown',
-        'distance' => 'Beyond Neptune',
+        'distance' => 'Beyond Neptune (Kuiper Belt)',
         'temperature' => '-230°C (estimated)',
-        'description' => 'Celester is a mysterious celestial body in the outer reaches of our Solar System, recently discovered and still being studied by astronomers.',
+        'orbit_period' => '~250 Earth years',
+        'moons' => 'Potentially 1-2',
+        'description' => 'Celester adalah benda langit misterius di pinggiran Tata Surya kami. Sebagai benda yang baru ditemukan, Celester masih dipelajari oleh astronom dan mungkin memiliki komposisi unik dengan banyak es dan mineral.',
         'facts' => [
-            'One of the newest discoveries in our Solar System',
-            'Located in the Kuiper Belt region',
-            'May have a unique composition of ice and minerals'
+            'Salah satu penemuan terbaru di Tata Surya',
+            'Terletak di wilayah Kuiper Belt yang gelap',
+            'Kemungkinan memiliki komposisi es dan mineral yang unik',
+            'Mungkin memiliki satu atau dua satelit alami'
         ]
     ]
 ];
@@ -203,6 +262,14 @@ $planets = [
                             <span class="spec-label">Temperature:</span>
                             <span id="modalTemperature" class="spec-value"></span>
                         </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Orbit Period:</span>
+                            <span id="modalOrbitPeriod" class="spec-value"></span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Moons:</span>
+                            <span id="modalMoons" class="spec-value"></span>
+                        </div>
                     </div>
                     <div class="planet-description">
                         <h3>Description</h3>
@@ -231,6 +298,8 @@ $planets = [
             document.getElementById('modalDiameter').textContent = planet.diameter;
             document.getElementById('modalMass').textContent = planet.mass;
             document.getElementById('modalTemperature').textContent = planet.temperature;
+            document.getElementById('modalOrbitPeriod').textContent = planet.orbit_period;
+            document.getElementById('modalMoons').textContent = planet.moons;
             document.getElementById('modalDescription').textContent = planet.description;
 
             // Hide distance for Sun

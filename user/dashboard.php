@@ -34,7 +34,7 @@ if ($_SESSION['role'] !== 'user') {
         <div class="planet-gallery">
             <div class="welcome-text inner-shadow">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
             </div>
-            <div class="planet-item" data-name="Mercury">
+            <div class="planet-item" onclick="window.location.href='history.php'" data-name="Mercury">
                 <img src="../assets/images/planets/mercury.png" alt="Mercury">
                 <span class="planet-caption">History</span>
             </div>
@@ -47,11 +47,11 @@ if ($_SESSION['role'] !== 'user') {
                 <span class="planet-caption">Profile</span>
             </div>
             <div class="planet-item" data-name="Jupiter">
-                <img src="../assets/images/planets/jupyter.png" alt="Jupiter">
+                <img src="../assets/images/planets/mars.png" alt="Jupiter">
                 <span class="planet-caption">Achievement</span>
             </div>
             <div class="planet-item" data-name="Neptune">
-                <img src="../assets/images/planets/neptune.png" alt="Neptune">
+                <img src="../assets/images/planets/jupiter.png" alt="Neptune">
                 <span class="planet-caption">Quiz</span>
             </div>
         </div>

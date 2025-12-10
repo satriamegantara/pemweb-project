@@ -43,21 +43,25 @@
 }
 
 .planetarium-container::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
 }
 
 .planetarium-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: transparent;
 }
 
 .planetarium-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
+  background: transparent;
 }
 
 .planetarium-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+
+/* Hide scrollbar for Firefox, Edge, and IE */
+.planetarium-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .page-title {
@@ -67,7 +71,8 @@
   text-transform: lowercase;
   letter-spacing: 8px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0;
+  margin-top: -80px;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
@@ -91,7 +96,8 @@
   text-align: center;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 50px;
+  margin-bottom: 60px;
+  margin-top: 5px;
   letter-spacing: 2px;
   font-family: "Ubuntu Mono Regular", monospace;
 }
@@ -211,17 +217,25 @@
 }
 
 .modal-content::-webkit-scrollbar {
-  width: 8px;
+  width: 0;
 }
 
 .modal-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: transparent;
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* Hide scrollbar for Firefox, Edge, and IE */
+.modal-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .close-modal {
@@ -248,11 +262,15 @@
   display: flex;
   gap: 40px;
   margin-top: 20px;
+  height: 100%;
 }
 
 .modal-left {
   flex: 0 0 300px;
   text-align: center;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
 }
 
 .modal-planet-img {
@@ -282,6 +300,31 @@
 
 .modal-right {
   flex: 1;
+  overflow-y: auto;
+  max-height: calc(85vh - 40px);
+  padding-right: 15px;
+}
+
+.modal-right::-webkit-scrollbar {
+  width: 0;
+}
+
+.modal-right::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-right::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.modal-right::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* Hide scrollbar for Firefox, Edge, and IE */
+.modal-right {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .planet-specs {
