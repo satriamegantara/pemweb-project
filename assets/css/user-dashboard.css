@@ -53,13 +53,18 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 48px;
-  font-weight: bold;
+  font-weight: 900;
   text-transform: lowercase;
   letter-spacing: 8px;
   z-index: 10;
-  animation: glow 2s ease-in-out infinite alternate;
   width: 100%;
   text-align: center;
+  color: black;
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .planet-item {

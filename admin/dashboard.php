@@ -76,8 +76,8 @@ $admin_data = mysqli_fetch_assoc($admin_result);
                     <h2 class="inner-shadow">selamat datang,
                         <?php echo htmlspecialchars($admin_data['username']); ?>!
                     </h2>
-                    <p>anda login sebagai administrator. gunakan menu di sebelah kiri untuk mengelola konten, user, dan
-                        laporan.</p>
+                    <p>Anda login sebagai administrator. Gunakan menu di sebelah kiri untuk mengelola
+                        konten, user, dan laporan.</p>
 
                     <div class="quick-stats">
                         <div class="stat-card">

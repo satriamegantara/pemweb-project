@@ -65,7 +65,7 @@ if (isset($_SESSION['userId'])) {
         </a>
 
         <a href="../auth/logout.php" class="logout-btn">
-            <img src="../assets/icons/ui/logout.png" class="icon"> Log Out
+            <img src="../assets/icons/ui/logout.png" class="icon"> Logout
         </a>
 
         <div class="profile-card">

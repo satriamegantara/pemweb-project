@@ -115,14 +115,16 @@
 .page-title {
   font-family: "Star Jedi", sans-serif;
   font-size: 48px;
-  font-weight: bold;
+  font-weight: 900;
   text-transform: lowercase;
   letter-spacing: 6px;
-  color: #ffffff;
+  color: #000;
   margin: 0 0 15px 0;
   text-shadow:
-    0 0 20px rgba(255, 255, 255, 0.5),
-    0 0 40px rgba(138, 43, 226, 0.3);
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .page-subtitle {
@@ -197,12 +199,13 @@
 }
 
 .stat-label {
+  font-family: "Ubuntu Mono Regular", monospace;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
   margin: 0 0 8px 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-weight: bolder;
 }
 
 .stat-value {
@@ -361,18 +364,14 @@
 }
 
 .history-planet-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-  text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
-}
-
-.history-visit-time {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
   font-family: "Ubuntu Mono Regular", monospace;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
 }
 
 .history-planet-duration {
@@ -388,6 +387,7 @@
   font-size: 13px;
   color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
+  font-family: "Ubuntu Mono Regular", monospace;
   font-weight: 500;
 }
 
@@ -438,10 +438,16 @@
 .empty-state h2 {
   font-family: "Star Jedi", sans-serif;
   font-size: 32px;
-  color: #ffffff;
+  color: #000;
   margin: 0 0 15px 0;
   letter-spacing: 3px;
-  text-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+  text-transform: lowercase;
+  font-weight: 900;
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .empty-state p {

@@ -67,29 +67,18 @@
 .page-title {
   font-family: "Star Jedi", sans-serif;
   font-size: 56px;
-  font-weight: bold;
+  font-weight: 900;
   text-transform: lowercase;
   letter-spacing: 8px;
   text-align: center;
   margin-bottom: 0;
   margin-top: -80px;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    text-shadow:
-      -2px -2px 3px #fff,
-      2px 2px 4px rgba(0, 0, 0, 0.8),
-      0 0 10px rgba(0, 0, 0, 0.5);
-  }
-  to {
-    text-shadow:
-      -2px -2px 3px #fff,
-      2px 2px 4px rgba(0, 0, 0, 0.8),
-      0 0 10px rgba(0, 0, 0, 0.5),
-      0 0 20px rgba(255, 255, 255, 0.3);
-  }
+  color: #000;
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .page-subtitle {
@@ -121,6 +110,9 @@
   transition: all 0.4s ease;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .planet-card:hover {
@@ -157,10 +149,15 @@
 .planet-name {
   font-family: "Star Jedi", sans-serif;
   font-size: 24px;
-  color: #fff;
+  color: #000;
   margin-bottom: 8px;
   letter-spacing: 2px;
   text-transform: lowercase;
+  text-shadow:
+    -1px -1px 2px #fff,
+    1px 1px 3px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
 }
 
 .planet-type {
@@ -284,11 +281,15 @@
 .modal-planet-name {
   font-family: "Star Jedi", sans-serif;
   font-size: 36px;
-  color: #fff;
+  color: #000;
   margin-bottom: 10px;
   letter-spacing: 3px;
   text-transform: lowercase;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .modal-planet-type {
@@ -360,10 +361,16 @@
 .planet-facts h3 {
   font-family: "Star Jedi", sans-serif;
   font-size: 20px;
-  color: #fff;
+  color: #000;
   margin-bottom: 12px;
   letter-spacing: 2px;
+  font-weight: 900;
   text-transform: lowercase;
+  text-shadow:
+    -1px -1px 2px #fff,
+    1px 1px 3px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
 }
 
 .planet-description p {

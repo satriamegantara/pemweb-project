@@ -50,7 +50,7 @@ if ($_SESSION['role'] !== 'user') {
                 <img src="../assets/images/planets/mars.png" alt="Jupiter">
                 <span class="planet-caption">Achievement</span>
             </div>
-            <div class="planet-item" data-name="Neptune">
+            <div class="planet-item" onclick="window.location.href='quiz.php'" data-name="Neptune">
                 <img src="../assets/images/planets/jupiter.png" alt="Neptune">
                 <span class="planet-caption">Quiz</span>
             </div>

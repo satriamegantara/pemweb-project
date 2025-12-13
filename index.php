@@ -17,12 +17,12 @@
         <img src="assets/images/bg/planet4.png" class="planet planet4">
         <img src="assets/images/bg/planet2.png" class="planet planet2">
         <img src="assets/images/bg/planet3.png" class="planet planet3">
+    </div>
 
-        <div class="content">
-            <h1 class="title inner-shadow">galaxy explorer</h1>
-            <p class="subtitle inner-shadow">unveiling stories from every hidden galaxy</p>
-            <a href="auth/login.php"><button class="start-btn inner-shadow">START</button></a>
-        </div>
+    <div class="content">
+        <h1 class="title inner-shadow">galaxy explorer</h1>
+        <p class="subtitle inner-shadow">unveiling stories from every hidden galaxy</p>
+        <a href="auth/login.php"><button class="start-btn inner-shadow">START</button></a>
     </div>
 </body>
 

@@ -3,13 +3,14 @@ session_start();
 include("../config/koneksi.php");
 
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../auth/login.php");
+    header("Location: ../error.php");
     exit;
 }
 
 $admin_query = "SELECT * FROM login WHERE userId = '{$_SESSION['userId']}'";
 $admin_result = mysqli_query($koneksi, $admin_query);
 $admin_data = mysqli_fetch_assoc($admin_result);
+$initials = strtoupper(substr($admin_data['username'], 0, 1));
 
 $error = "";
 $success = "";
@@ -96,42 +97,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <div class="content-area">
-                <div class="edit-profile-card">
-                    <div class="form-container">
-                        <h2 class="inner-shadow">edit profile admin</h2>
-
-                        <?php if (!empty($success)): ?>
-                            <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($error)): ?>
-                            <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
-                        <?php endif; ?>
-
-                        <form method="POST" action="">
-                            <div class="form-group">
-                                <label for="username">username</label>
-                                <input type="text" id="username" name="username"
-                                    value="<?php echo htmlspecialchars($admin_data['username']); ?>" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">email</label>
-                                <input type="email" id="email" name="email"
-                                    value="<?php echo htmlspecialchars($admin_data['email'] ?? ''); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">password</label>
-                                <input type="password" id="password" name="password" placeholder="Password">
-                            </div>
-
-                            <div class="form-buttons">
-                                <button type="submit" class="back-btn">simpan perubahan</button>
-                                <a href="dashboard.php" class="back-btn">kembali</a>
-                            </div>
-                        </form>
+                <div class="edit-profile-card admin-edit-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar"><?php echo htmlspecialchars($initials); ?></div>
+                        <h2 class="profile-title inner-shadow">edit profile admin</h2>
                     </div>
+
+                    <?php if (!empty($success)): ?>
+                        <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($error)): ?>
+                        <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+                    <?php endif; ?>
+
+                    <form method="POST" action="" class="edit-profile-form">
+                        <div class="form-group-edit">
+                            <label for="username" class="profile-label">username</label>
+                            <input type="text" id="username" name="username" class="edit-input"
+                                value="<?php echo htmlspecialchars($admin_data['username']); ?>" required>
+                        </div>
+
+                        <div class="form-group-edit">
+                            <label for="email" class="profile-label">email address</label>
+                            <input type="email" id="email" name="email" class="edit-input"
+                                value="<?php echo htmlspecialchars($admin_data['email'] ?? ''); ?>">
+                        </div>
+
+                        <div class="divider"></div>
+                        <p class="section-title">Change Password (Optional)</p>
+
+                        <div class="form-group-edit">
+                            <label for="password" class="profile-label">new password</label>
+                            <input type="password" id="password" name="password" class="edit-input"
+                                placeholder="Password">
+                        </div>
+
+                        <div class="profile-actions">
+                            <button type="submit" class="profile-btn edit-btn">Save</button>
+                            <a href="dashboard.php" class="profile-btn back-btn">Cancel</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

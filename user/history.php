@@ -13,14 +13,11 @@ if ($_SESSION['role'] !== 'user') {
 }
 
 $username = htmlspecialchars($_SESSION['username']);
-$user_id = $_SESSION['userid'] ?? null;
-
-$username = htmlspecialchars($_SESSION['username']);
 $user_id = $_SESSION['userId'] ?? null;
 
 // Initialize data
 $history_data = [];
-$stats = ['total_views' => 0, 'unique_planets' => 0, 'total_duration' => 0, 'last_visit' => null];
+$stats = ['total_views' => 0, 'unique_planets' => 0, 'last_visit' => null];
 $error_message = '';
 
 
@@ -43,8 +40,7 @@ if ($table_exists && $user_id) {
         SELECT 
             id,
             planet_name,
-            view_time,
-            duration_minutes
+            view_time
         FROM planet_history
         WHERE user_id = ?
         ORDER BY view_time DESC
@@ -70,7 +66,6 @@ if ($table_exists && $user_id) {
         SELECT 
             COUNT(*) as total_views,
             COUNT(DISTINCT planet_name) as unique_planets,
-            COALESCE(SUM(duration_minutes), 0) as total_duration,
             MAX(view_time) as last_visit
         FROM planet_history
         WHERE user_id = ?
@@ -109,16 +104,11 @@ if ($table_exists && $user_id) {
     </div>
 
     <div class="content-history">
-        <a href="../auth/logout.php" class="logout-btn">
-            <img src="../assets/icons/ui/logout.png" class="icon" alt="Logout">Log Out
-        </a>
-
         <a href="dashboard.php" class="back-btn">
             <img src="../assets/icons/ui/back.png" class="icon" alt="Back">Back
         </a>
 
         <div class="history-container">
-            <!-- Error Message (if any) -->
             <?php if ($error_message): ?>
                 <div class="error-alert">
                     <span class="error-icon">⚠️</span>
@@ -128,7 +118,7 @@ if ($table_exists && $user_id) {
 
             <!-- Header -->
             <div class="history-header">
-                <h1 class="page-title">Riwayat Penjelajahan</h1>
+                <h1 class="page-title">riwayat penjelajahan</h1>
                 <p class="page-subtitle">Lihat perjalanan Anda menjelajahi galaksi</p>
             </div>
 
@@ -170,15 +160,17 @@ if ($table_exists && $user_id) {
                         </svg>
                     </div>
                     <div class="stat-content">
-                        <p class="stat-label">Total Durasi</p>
-                        <p class="stat-value"><?php echo ($stats['total_duration'] ?? 0) . ' mnt'; ?></p>
+                        <p class="stat-label">Kunjungan Terakhir</p>
+                        <p class="stat-value">
+                            <?php echo !empty($stats['last_visit']) ? (new DateTime($stats['last_visit']))->format('d M') : '-'; ?>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- Filter Section -->
             <div class="filter-section">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari planet...">
+                <input type="text" id="searchInput" class="search-input" placeholder="Cari planet">
                 <select id="sortSelect" class="sort-select">
                     <option value="latest">Terbaru</option>
                     <option value="oldest">Terlama</option>
@@ -198,27 +190,19 @@ if ($table_exists && $user_id) {
 
                                 <div class="history-item-content">
                                     <div class="history-planet-info">
-                                        <h3 class="history-planet-name"><?php echo htmlspecialchars($entry['planet_name']); ?>
+                                        <h3 class="history-planet-name">
+                                            <?php echo ucfirst(htmlspecialchars($entry['planet_name'])); ?>
                                         </h3>
-                                        <p class="history-visit-time">
-                                            <?php
-                                            $date = new DateTime($entry['view_time']);
-                                            echo $date->format('d M Y, H:i');
-                                            ?>
-                                        </p>
                                     </div>
 
                                     <div class="history-planet-duration">
                                         <span class="duration-badge">
-                                            ⏱️ <?php echo $entry['duration_minutes']; ?> menit
+                                            <?php
+                                            $date = new DateTime($entry['view_time']);
+                                            echo $date->format('d M Y, H:i');
+                                            ?>
                                         </span>
                                     </div>
-                                </div>
-
-                                <div class="history-item-arrow">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -267,20 +251,21 @@ if ($table_exists && $user_id) {
             sortSelect.addEventListener('change', function (e) {
                 const historyList = document.querySelector('.history-list');
                 const items = Array.from(document.querySelectorAll('.history-item'));
+                const sortValue = e.target.value;
 
-                items.sort((a, b) => {
-                    const sortValue = e.target.value;
-
-                    if (sortValue === 'latest') {
-                        return 0; // Keep original order
-                    } else if (sortValue === 'oldest') {
-                        return 0; // Keep original order (items already sorted by latest first)
-                    } else if (sortValue === 'planet') {
+                if (sortValue === 'latest') {
+                    // Keep original order (already sorted by DB DESC)
+                } else if (sortValue === 'oldest') {
+                    // Reverse for oldest first
+                    items.reverse();
+                } else if (sortValue === 'planet') {
+                    // Sort alphabetically by planet name
+                    items.sort((a, b) => {
                         const planetA = a.getAttribute('data-planet');
                         const planetB = b.getAttribute('data-planet');
                         return planetA.localeCompare(planetB);
-                    }
-                });
+                    });
+                }
 
                 historyList.innerHTML = '';
                 items.forEach(item => historyList.appendChild(item));

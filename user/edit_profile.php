@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </a>
 
         <a href="../auth/logout.php" class="logout-btn">
-            <img src="../assets/icons/ui/logout.png" class="icon"> logout
+            <img src="../assets/icons/ui/logout.png" class="icon"> Logout
         </a>
 
         <div class="profile-card">

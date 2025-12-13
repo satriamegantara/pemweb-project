@@ -3,7 +3,7 @@ session_start();
 include("../config/koneksi.php");
 
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../auth/login.php");
+    header("Location: ../error.php");
     exit;
 }
 

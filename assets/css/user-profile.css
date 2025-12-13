@@ -161,10 +161,16 @@ html {
 .profile-title {
   font-family: "Star Jedi", sans-serif;
   font-size: 26px;
-  color: #fff;
+  color: #000;
   margin-bottom: 5px;
   letter-spacing: 2px;
+  font-weight: 900;
   text-transform: lowercase;
+  text-shadow:
+    -2px -2px 3px #fff,
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }
 
 .profile-subtitle {
@@ -238,14 +244,22 @@ html {
 }
 
 .edit-btn {
-  background: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .edit-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+  box-shadow:
+    0 0 40px #c3770c,
+    0 12px 40px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 20px #c3770c;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
 }
 
 .back-btn {
