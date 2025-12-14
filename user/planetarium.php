@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../config/koneksi.php';
+require_once '../config/planets_helper.php';
 
 if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
     header("Location: ../auth/login.php");
@@ -11,43 +13,10 @@ if ($_SESSION['role'] !== 'user') {
     exit;
 }
 
-$planets = [
-    [
-        'name' => 'Sun',
-        'image' => 'sun.png',
-        'type' => 'Star',
-        'diameter' => '1,391,000 km',
-        'mass' => '1.989 × 10³⁰ kg',
-        'temperature' => '5,500°C (surface), 15 million°C (core)',
-        'orbit_period' => '-',
-        'moons' => 'N/A',
-        'gravity' => '274 m/s² (28x Earth)',
-        'composition' => '73% Hydrogen, 25% Helium, 2% others',
-        'age' => '4.6 billion years',
-        'description' => 'Matahari adalah bintang di pusat Tata Surya kita. Merupakan bola plasma panas yang dipanaskan oleh reaksi fusi nuklir di intinya, Matahari adalah sumber energi utama bagi semua kehidupan di Bumi. Setiap detik, 600 juta ton hidrogen diubah menjadi helium, memancarkan energi yang luar biasa ke seluruh Tata Surya.',
-        'facts' => [
-            'Mengandung 99.86% massa Tata Surya',
-            'Cahaya dari Matahari membutuhkan waktu sekitar 8 menit untuk mencapai Bumi',
-            'Umur Matahari sekitar 4.6 miliar tahun dan akan bersinar 5 miliar tahun lagi',
-            'Diameter Matahari sekitar 109 kali lebih besar dari Bumi',
-            'Suhu inti mencapai 15 juta derajat Celsius',
-            'Berputar lebih cepat di ekuator (25 hari) daripada di kutub (35 hari)',
-            'Badai Matahari dapat mengganggu komunikasi satelit di Bumi',
-            'Massa Matahari akan terus berkurang 4 juta ton per detik karena fusi nuklir'
-        ]
-    ],
-    [
-        'name' => 'Mercury',
-        'image' => 'mercury.png',
-        'type' => 'Terrestrial Planet',
-        'diameter' => '4,879 km',
-        'mass' => '3.285 × 10²³ kg',
-        'distance' => '57.9 million km from Sun',
-        'temperature' => '-173°C (night) to 427°C (day)',
-        'orbit_period' => '88 Earth days',
-        'moons' => 'None',
-        'gravity' => '3.7 m/s² (0.38x Earth)',
-        'day_length' => '176 Earth days',
+// Ambil data planet dari database
+$planets = getPlanets($koneksi);
+?>
+<!DOCTYPE html>
         'atmosphere' => 'Almost none (exosphere)',
         'description' => 'Mercury adalah planet terkecil dan terdekat dengan Matahari dalam Tata Surya kita. Dengan permukaan yang dipenuhi kawah mirip Bulan dan hampir tanpa atmosfer, Mercury mengalami variasi suhu ekstrem - sangat panas di siang hari dan sangat dingin di malam hari. Planet ini memiliki inti besi yang sangat besar.',
         'facts' => [
@@ -268,10 +237,7 @@ $planets = [
             'Studi lebih lanjut diperlukan untuk mengonfirmasi karakteristiknya',
             'Representasi dari banyak objek misterius di pinggiran Tata Surya'
         ]
-    ]
-];
-?>
-<!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -299,13 +265,13 @@ $planets = [
 
             <div class="planet-grid">
                 <?php foreach ($planets as $index => $planet): ?>
-                    <a href="planet_detail.php?planet=<?php echo strtolower($planet['name']); ?>" class="planet-card">
+                    <a href="planet_detail.php?planet=<?php echo htmlspecialchars($planet['name']); ?>" class="planet-card">
                         <div class="planet-image-wrapper">
                             <img src="../assets/images/planets/<?php echo preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $planet['image']); ?>"
-                                alt="<?php echo $planet['name']; ?>" class="planet-img">
+                                alt="<?php echo htmlspecialchars($planet['english_name']); ?>" class="planet-img">
                         </div>
-                        <h3 class="planet-name"><?php echo $planet['name']; ?></h3>
-                        <p class="planet-type"><?php echo $planet['type']; ?></p>
+                        <h3 class="planet-name"><?php echo htmlspecialchars($planet['english_name']); ?></h3>
+                        <p class="planet-type"><?php echo htmlspecialchars($planet['type']); ?></p>
                     </a>
                 <?php endforeach; ?>
             </div>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../config/koneksi.php';
+require_once '../config/planets_helper.php';
 
 if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
     header("Location: ../auth/login.php");
@@ -13,10 +15,34 @@ if ($_SESSION['role'] !== 'user') {
 
 $planet_name = isset($_GET['planet']) ? htmlspecialchars($_GET['planet']) : 'sun';
 
-$planets_data = [
-    'sun' => [
-        'name' => 'Matahari',
-        'english_name' => 'Sun',
+// Ambil data planet dari database
+$planet = getPlanetByName($koneksi, $planet_name);
+
+// Jika planet tidak ditemukan, redirect ke planetarium
+if (!$planet) {
+    header("Location: planetarium.php");
+    exit;
+}
+
+// Data sudah diambil dari database melalui getPlanetByName()
+// Tidak perlu mapping lagi karena struktur sudah sama
+?>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/icons/thumbnail.png" type="image/png">
+    <title><?php echo htmlspecialchars($planet['english_name']); ?> - Galaxy Explorer</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/planetarium.css">
+    <link rel="stylesheet" href="../assets/css/planet-detail.css">
+</head>
+
+<body>
+    <div class="container login-page">
+        <div class="bg"></div>
         'type' => 'Bintang',
         'image' => 'sun.png',
         'diameter' => '1,391,000 km',
@@ -321,33 +347,8 @@ $planets_data = [
             'Representasi dari banyak objek misterius yang masih belum terjamah di pinggiran Tata Surya'
         ],
         'missions' => 'Tidak ada misi yang telah dikirim',
-        'exploration' => 'Celester belum pernah dikunjungi oleh pesawat luar angkasa manapun. Observasi saat ini dilakukan dari Bumi dan teleskop luar angkasa. Studi lebih lanjut diperlukan untuk mengkonfirmasi karakteristiknya. Jika ada misi masa depan ke Kuiper Belt, Celester akan menjadi salah satu target utama untuk penelitian.'
-    ]
-];
-
-if (!isset($planets_data[$planet_name])) {
-    header("Location: planetarium.php");
-    exit;
-}
-
-$planet = $planets_data[$planet_name];
-?>
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/icons/thumbnail.png" type="image/png">
-    <title><?php echo $planet['name']; ?> - Galaxy Explorer</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/planetarium.css">
-    <link rel="stylesheet" href="../assets/css/planet-detail.css">
-</head>
-
-<body>
-    <div class="container login-page">
         <div class="bg"></div>
+        <div class="bg bg2"></div>
     </div>
 
     <div class="planet-detail-container">
@@ -358,68 +359,66 @@ $planet = $planets_data[$planet_name];
         <div class="planet-detail-header">
             <div class="planet-detail-image">
                 <img src="../assets/images/planets/<?php echo preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $planet['image']); ?>"
-                    alt="<?php echo $planet['name']; ?>">
+                    alt="<?php echo htmlspecialchars($planet['english_name']); ?>">
             </div>
             <div class="planet-detail-info">
-                <div class="planet-detail-title"><?php echo $planet['name']; ?></div>
-                <div class="planet-detail-subtitle"><?php echo $planet['english_name']; ?> -
-                    <?php echo $planet['type']; ?>
-                </div>
+                <div class="planet-detail-title"><?php echo htmlspecialchars($planet['english_name']); ?></div>
+                <div class="planet-detail-subtitle"><?php echo htmlspecialchars($planet['type']); ?></div>
 
                 <div class="planet-stats">
-                    <?php if (isset($planet['diameter'])): ?>
+                    <?php if (!empty($planet['diameter'])): ?>
                         <div class="stat">
                             <div class="stat-label">Diameter</div>
-                            <div class="stat-value"><?php echo $planet['diameter']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['diameter']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['mass'])): ?>
+                    <?php if (!empty($planet['mass'])): ?>
                         <div class="stat">
                             <div class="stat-label">Massa</div>
-                            <div class="stat-value"><?php echo $planet['mass']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['mass']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['distance'])): ?>
+                    <?php if (!empty($planet['distance'])): ?>
                         <div class="stat">
                             <div class="stat-label">Jarak dari Matahari</div>
-                            <div class="stat-value"><?php echo $planet['distance']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['distance']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['temperature'])): ?>
+                    <?php if (!empty($planet['temperature'])): ?>
                         <div class="stat">
                             <div class="stat-label">Suhu</div>
-                            <div class="stat-value"><?php echo $planet['temperature']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['temperature']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['gravity'])): ?>
+                    <?php if (!empty($planet['gravity'])): ?>
                         <div class="stat">
                             <div class="stat-label">Gravitasi</div>
-                            <div class="stat-value"><?php echo $planet['gravity']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['gravity']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['day_length'])): ?>
+                    <?php if (!empty($planet['day_length'])): ?>
                         <div class="stat">
                             <div class="stat-label">Panjang Hari</div>
-                            <div class="stat-value"><?php echo $planet['day_length']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['day_length']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['year_length'])): ?>
+                    <?php if (!empty($planet['year_length'])): ?>
                         <div class="stat">
                             <div class="stat-label">Panjang Tahun</div>
-                            <div class="stat-value"><?php echo $planet['year_length']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['year_length']); ?></div>
                         </div>
                     <?php endif; ?>
 
-                    <?php if (isset($planet['moons'])): ?>
+                    <?php if (!empty($planet['moons'])): ?>
                         <div class="stat">
                             <div class="stat-label">Bulan</div>
-                            <div class="stat-value"><?php echo $planet['moons']; ?></div>
+                            <div class="stat-value"><?php echo htmlspecialchars($planet['moons']); ?></div>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -429,31 +428,40 @@ $planet = $planets_data[$planet_name];
         <div class="section">
             <div class="section-title">Deskripsi</div>
             <div class="section-content">
-                <?php echo $planet['description']; ?>
+                <?php echo htmlspecialchars($planet['description']); ?>
             </div>
         </div>
 
+        <?php if (!empty($planet['history'])): ?>
         <div class="section">
-            <div class="section-title">Sejarah dan Penemuan</div>
+            <div class="section-title">Sejarah</div>
             <div class="section-content">
-                <?php echo $planet['history']; ?>
+                <?php echo htmlspecialchars($planet['history']); ?>
             </div>
         </div>
+        <?php endif; ?>
 
+        <?php if (!empty($planet['facts'])): ?>
         <div class="section">
             <div class="section-title">Fakta Menarik</div>
-            <div class="facts-list">
+            <div class="section-content">
                 <?php foreach ($planet['facts'] as $fact): ?>
-                    <div class="fact-item">★ <?php echo $fact; ?></div>
+                    <div class="fact-item">✦ <?php echo htmlspecialchars($fact); ?></div>
                 <?php endforeach; ?>
             </div>
         </div>
+        <?php endif; ?>
 
+        <?php if (!empty($planet['missions']) || !empty($planet['exploration'])): ?>
         <div class="section">
-            <div class="section-title">Misi dan Eksplorasi</div>
+            <div class="section-title">Eksplorasi</div>
             <div class="section-content">
-                <strong>Misi Terkait:</strong> <?php echo $planet['missions']; ?><br><br>
-                <?php echo $planet['exploration']; ?>
+                <?php if (!empty($planet['missions'])): ?>
+                    <strong>Misi Terkait:</strong> <?php echo htmlspecialchars($planet['missions']); ?><br><br>
+                <?php endif; ?>
+                <?php if (!empty($planet['exploration'])): ?>
+                    <?php echo htmlspecialchars($planet['exploration']); ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
