@@ -35,10 +35,10 @@ if (isset($_POST['reset'])) {
     <div class="container login-page">
         <div class="bg"></div>
 
-        <img src="../assets/images/bg/planet1.png" class="planet planet1">
-        <img src="../assets/images/bg/planet4.png" class="planet planet4">
-        <img src="../assets/images/bg/planet2.png" class="planet planet2">
-        <img src="../assets/images/bg/planet3.png" class="planet planet3">
+        <img src="../assets/images/bg/planet1.webp" class="planet planet1">
+        <img src="../assets/images/bg/planet4.webp" class="planet planet4">
+        <img src="../assets/images/bg/planet2.webp" class="planet planet2">
+        <img src="../assets/images/bg/planet3.webp" class="planet planet3">
     </div>
     <div class="content-login">
         <div class="login-card glass-card">

@@ -266,10 +266,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </form>
                     </div>
 
-                    <!-- ADD QUIZ FORM -->
                     <div class="content-form">
-                        <div class="form-header">
-                            <i class="fas fa-question-circle"></i>
+                        <div class="form-header inner-shadow">
                             <h3>Tambah Soal Quiz</h3>
                         </div>
 

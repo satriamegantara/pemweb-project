@@ -184,17 +184,17 @@
     <div class="container login-page">
         <div class="bg"></div>
 
-        <img src="assets/images/bg/planet1.png" class="planet planet1">
-        <img src="assets/images/bg/planet4.png" class="planet planet4">
-        <img src="assets/images/bg/planet2.png" class="planet planet2">
-        <img src="assets/images/bg/planet3.png" class="planet planet3">
+        <img src="assets/images/bg/planet1.webp" class="planet planet1">
+        <img src="assets/images/bg/planet4.webp" class="planet planet4">
+        <img src="assets/images/bg/planet2.webp" class="planet planet2">
+        <img src="assets/images/bg/planet3.webp" class="planet planet3">
 
         <h1 class="title inner-shadow">Access Denied</h1>
         <p class="subtitle inner-shadow">Please make sure you are logged in with the correct account.</p>
         <a href="index.php" class="btn-go-back inner-shadow">Back to Home</a>
     </div>
 
-    <img src="assets/images/astronot.png" class="astronot">
+    <img src="assets/images/astronot.webp" class="astronot">
     <img src="assets/images/comet.png" class="asteroid">
 </body>
 <script>

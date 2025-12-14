@@ -35,23 +35,23 @@ if ($_SESSION['role'] !== 'user') {
             <div class="welcome-text inner-shadow">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
             </div>
             <div class="planet-item" onclick="window.location.href='history.php'" data-name="Mercury">
-                <img src="../assets/images/planets/mercury.png" alt="Mercury">
+                <img src="../assets/images/planets/mercury.webp" alt="Mercury">
                 <span class="planet-caption">History</span>
             </div>
             <div class="planet-item" onclick="window.location.href='planetarium.php'" data-name="Venus">
-                <img src="../assets/images/planets/venus.png" alt="Venus">
+                <img src="../assets/images/planets/venus.webp" alt="Venus">
                 <span class="planet-caption">Planetarium</span>
             </div>
             <div class="planet-item" onclick="window.location.href='profile.php'" data-name="Earth">
-                <img src="../assets/images/planets/earth.png" alt="Earth">
+                <img src="../assets/images/planets/earth.webp" alt="Earth">
                 <span class="planet-caption">Profile</span>
             </div>
             <div class="planet-item" data-name="Jupiter">
-                <img src="../assets/images/planets/mars.png" alt="Jupiter">
+                <img src="../assets/images/planets/mars.webp" alt="Jupiter">
                 <span class="planet-caption">Achievement</span>
             </div>
             <div class="planet-item" onclick="window.location.href='quiz.php'" data-name="Neptune">
-                <img src="../assets/images/planets/jupiter.png" alt="Neptune">
+                <img src="../assets/images/planets/jupiter.webp" alt="Neptune">
                 <span class="planet-caption">Quiz</span>
             </div>
         </div>

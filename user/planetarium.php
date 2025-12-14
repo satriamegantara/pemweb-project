@@ -301,7 +301,7 @@ $planets = [
                 <?php foreach ($planets as $index => $planet): ?>
                     <a href="planet_detail.php?planet=<?php echo strtolower($planet['name']); ?>" class="planet-card">
                         <div class="planet-image-wrapper">
-                            <img src="../assets/images/planets/<?php echo $planet['image']; ?>"
+                            <img src="../assets/images/planets/<?php echo preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $planet['image']); ?>"
                                 alt="<?php echo $planet['name']; ?>" class="planet-img">
                         </div>
                         <h3 class="planet-name"><?php echo $planet['name']; ?></h3>

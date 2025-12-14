@@ -71,6 +71,7 @@
 }
 
 .add-content-page .form-header h3 {
+  text-transform: lowercase;
   font-size: 22px;
   color: #000;
   margin: 0;
@@ -155,13 +156,14 @@
 }
 
 .add-content-page .fact-input-group .btn-remove {
+  font-family: "Ubuntu Mono Sans", monospace;
   background: rgba(255, 76, 76, 0.3);
   border: 1px solid rgba(255, 76, 76, 0.5);
   color: #ff4c4c;
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -186,6 +188,7 @@
 }
 
 .add-content-page .btn-submit {
+  font-family: "Ubuntu Mono Sans", monospace;
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #d4af37, #c3770c);
@@ -410,15 +413,37 @@
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid var(--panel-border);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-top: 10px;
   font-size: 12px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .update-content-page .quiz-option {
-  padding: 4px 0;
-  color: #ccc;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: "Ubuntu", sans-serif;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 10px 12px;
+  margin: 6px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.update-content-page .quiz-option:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.16);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.18);
+}
+
+.update-content-page .quiz-option:focus {
+  outline: 2px solid rgba(212, 175, 55, 0.6);
+  outline-offset: 2px;
 }
 
 .update-content-page .quiz-option.correct {

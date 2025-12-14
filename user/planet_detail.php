@@ -357,7 +357,7 @@ $planet = $planets_data[$planet_name];
 
         <div class="planet-detail-header">
             <div class="planet-detail-image">
-                <img src="../assets/images/planets/<?php echo $planet['image']; ?>"
+                <img src="../assets/images/planets/<?php echo preg_replace('/\.(png|jpg|jpeg)$/i', '.webp', $planet['image']); ?>"
                     alt="<?php echo $planet['name']; ?>">
             </div>
             <div class="planet-detail-info">
