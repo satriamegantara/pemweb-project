@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Username dan Email harus diisi!";
     } else {
         if (!empty($password)) {
-            $update_query = "UPDATE login SET username = '$username', email = '$email', password = '$password' WHERE userId = '{$_SESSION['userId']}'";
+            // Hash password baru
+            $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+            $update_query = "UPDATE login SET username = '$username', email = '$email', password = '$password_hashed' WHERE userId = '{$_SESSION['userId']}'";
         } else {
             $update_query = "UPDATE login SET username = '$username', email = '$email' WHERE userId = '{$_SESSION['userId']}'";
         }

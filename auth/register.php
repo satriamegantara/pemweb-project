@@ -15,7 +15,9 @@ if (isset($_POST['submit'])) {
 
         $email_e = mysqli_real_escape_string($koneksi, $email);
         $uname_e = mysqli_real_escape_string($koneksi, $uname);
-        $password_e = mysqli_real_escape_string($koneksi, $password);
+
+        // Hash password menggunakan bcrypt
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $check_query = "SELECT * FROM login WHERE username='$uname_e' OR email='$email_e'";
         $check_result = mysqli_query($koneksi, $check_query);
@@ -23,7 +25,7 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($check_result) > 0) {
             $error = "Username atau Email sudah terdaftar!";
         } else {
-            $result = mysqli_query($koneksi, "INSERT INTO login(email,username,password,role) VALUES('" . $email_e . "','" . $uname_e . "','" . $password_e . "','user')");
+            $result = mysqli_query($koneksi, "INSERT INTO login(email,username,password,role) VALUES('" . $email_e . "','" . $uname_e . "','" . $password_hashed . "','user')");
 
             if ($result) {
                 header("Location: login.php");

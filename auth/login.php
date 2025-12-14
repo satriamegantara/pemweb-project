@@ -5,25 +5,30 @@ include("../config/koneksi.php");
 $error = "";
 
 if (isset($_POST["login"])) {
-    $uname = $_POST['username'];
+    $uname = mysqli_real_escape_string($koneksi, $_POST['username']);
     $pass = $_POST['password'];
 
-    $query = "SELECT * FROM login WHERE username='$uname' AND password='$pass'";
+    $query = "SELECT * FROM login WHERE username='$uname'";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) === 1) {
         $data = mysqli_fetch_assoc($result);
 
-        $_SESSION['username'] = $data['username'];
-        $_SESSION['userId'] = $data['userId'];
-        $_SESSION['role'] = $data['role'];
+        // Verify password menggunakan password_verify()
+        if (password_verify($pass, $data['password'])) {
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['userId'] = $data['userId'];
+            $_SESSION['role'] = $data['role'];
 
-        if ($data['role'] === "admin") {
-            header("Location: ../admin/dashboard.php");
+            if ($data['role'] === "admin") {
+                header("Location: ../admin/dashboard.php");
+            } else {
+                header("Location: ../user/dashboard.php");
+            }
+            exit;
         } else {
-            header("Location: ../user/dashboard.php");
+            $error = "Username atau password salah!";
         }
-        exit;
     } else {
         $error = "Username atau password salah!";
     }

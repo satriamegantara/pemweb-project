@@ -10,8 +10,10 @@ if (isset($_POST['reset'])) {
     } else {
         include("../config/koneksi.php");
 
-        $password_e = mysqli_real_escape_string($koneksi, $password);
-        $result = mysqli_query($koneksi, "UPDATE login SET password='" . $password_e . "' WHERE email='" . $_SESSION["reset_email"] . "'");
+        // Hash password baru
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
+        $result = mysqli_query($koneksi, "UPDATE login SET password='" . $password_hashed . "' WHERE email='" . $_SESSION["reset_email"] . "'");
         if ($result) {
             header("Location: login.php");
             exit;

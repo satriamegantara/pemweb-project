@@ -55,8 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $check_result = mysqli_query($koneksi, $check_query);
                 if ($check_result && mysqli_num_rows($check_result) > 0) {
                     $user = mysqli_fetch_assoc($check_result);
-                    if ($current_password === $user['password']) {
-                        $update_query = "UPDATE login SET username = '$new_username', email = '$new_email', password = '$new_password' WHERE userId = '{$_SESSION['userId']}'";
+                    // Verify current password
+                    if (password_verify($current_password, $user['password'])) {
+                        // Hash password baru
+                        $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+                        $update_query = "UPDATE login SET username = '$new_username', email = '$new_email', password = '$new_password_hashed' WHERE userId = '{$_SESSION['userId']}'";
                         if (mysqli_query($koneksi, $update_query)) {
                             $_SESSION['username'] = $new_username;
                             $_SESSION['success_message'] = "Profile and password updated successfully!";
