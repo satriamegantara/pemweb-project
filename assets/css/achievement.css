@@ -1,4 +1,12 @@
-/* Achievement page styles */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 .achievement-page {
   position: relative;
   z-index: 25;

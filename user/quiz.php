@@ -254,8 +254,33 @@ $total_questions = count($quiz_questions);
 
             const percentage = Math.round((correctAnswers / quizData.length) * 100);
 
+            // Save quiz result to database
+            saveQuizResult(percentage);
+
             // Show results
             showResults(correctAnswers, percentage);
+        }
+
+        function saveQuizResult(score) {
+            const formData = new FormData();
+            formData.append('score', score);
+            formData.append('duration', 0);
+
+            fetch('save_quiz_result.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Quiz result saved successfully');
+                    } else {
+                        console.error('Failed to save quiz result:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving quiz result:', error);
+                });
         }
 
         function showResults(correctAnswers, percentage) {
@@ -266,15 +291,15 @@ $total_questions = count($quiz_questions);
 
             let message = '';
             if (percentage === 100) {
-                message = '🌟 Sempurna! Kamu adalah ahli astronomi sejati!';
+                message = 'Gacor king! Kamu adalah ahli astronomi sejati!';
             } else if (percentage >= 80) {
-                message = '🎉 Luar biasa! Pengetahuanmu tentang Tata Surya sangat bagus!';
+                message = 'Goks! Pengetahuanmu tentang Tata Surya sangat bagus!';
             } else if (percentage >= 60) {
-                message = '👍 Bagus! Terus belajar tentang planet dan bintang.';
+                message = 'Nice! Terus belajar tentang planet dan bintang.';
             } else if (percentage >= 40) {
-                message = '📚 Lumayan! Ada banyak hal menarik untuk dipelajari tentang Tata Surya.';
+                message = 'Not bad! Ada banyak hal menarik untuk dipelajari tentang Tata Surya.';
             } else {
-                message = '💪 Keep trying! Jelajahi planetarium untuk belajar lebih banyak.';
+                message = 'Coba lagi! Jelajahi planetarium untuk belajar lebih banyak.';
             }
 
             document.getElementById('scoreMessage').textContent = message;
@@ -293,7 +318,6 @@ $total_questions = count($quiz_questions);
             quizData.forEach(q => {
                 const isCorrect = answers[q.id] === q.correct;
                 const selectedAnswer = answers[q.id] !== null ? q.options[answers[q.id]] : 'Tidak dijawab';
-                const correctAnswer = q.options[q.correct];
 
                 detailsHtml += `
                     <div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
@@ -301,7 +325,6 @@ $total_questions = count($quiz_questions);
                         <div class="answer-content">
                             <p class="answer-question">${q.question}</p>
                             <p class="answer-your">Jawabanmu: ${selectedAnswer}</p>
-                            ${!isCorrect ? `<p class="answer-correct">Jawaban benar: ${correctAnswer}</p>` : ''}
                         </div>
                     </div>
                 `;

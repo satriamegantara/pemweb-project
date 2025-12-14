@@ -25,7 +25,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'add_planetarium') {
         $name = mysqli_real_escape_string($koneksi, $_POST['planet_name']);
-        $image = mysqli_real_escape_string($koneksi, $_POST['planet_image']);
+        // Handle image upload
+        $image = '';
+        $upload_error = '';
+        if (isset($_FILES['planet_image']) && $_FILES['planet_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
+            $max_size = 5 * 1024 * 1024; // 5MB
+            $file_tmp = $_FILES['planet_image']['tmp_name'];
+            $file_name = basename($_FILES['planet_image']['name']);
+            $file_type = mime_content_type($file_tmp);
+            $file_size = $_FILES['planet_image']['size'];
+
+            if (!in_array($file_type, $allowed_types)) {
+                $upload_error = 'Format gambar harus JPG, PNG, atau WEBP';
+            } elseif ($file_size > $max_size) {
+                $upload_error = 'Ukuran gambar maksimal 5MB';
+            } else {
+                $target_dir = realpath(__DIR__ . '/../assets/images/planets');
+                if ($target_dir === false) {
+                    $target_dir = __DIR__ . '/../assets/images/planets';
+                    @mkdir($target_dir, 0777, true);
+                }
+                // Generate safe filename
+                $ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                $safe_base = preg_replace('/[^a-zA-Z0-9_-]/', '_', strtolower($name));
+                $new_file = $safe_base . '_' . time() . '.' . strtolower($ext);
+                $target_path = $target_dir . DIRECTORY_SEPARATOR . $new_file;
+
+                if (move_uploaded_file($file_tmp, $target_path)) {
+                    // Store relative path for web usage
+                    $image = 'assets/images/planets/' . $new_file;
+                } else {
+                    $upload_error = 'Gagal mengunggah gambar';
+                }
+            }
+        }
         $type = mysqli_real_escape_string($koneksi, $_POST['planet_type']);
         $diameter = mysqli_real_escape_string($koneksi, $_POST['planet_diameter']);
         $mass = mysqli_real_escape_string($koneksi, $_POST['planet_mass']);
@@ -42,25 +76,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $created_by = $_SESSION['userId'];
 
         if (!empty($name) && !empty($description)) {
-            $insert_query = "INSERT INTO planetarium (name, image, type, diameter, mass, distance, temperature, orbit_period, moons, gravity, day_length, atmosphere, composition, age, description, created_by) 
+            if ($upload_error) {
+                $error_message = $upload_error;
+            } else if (empty($image)) {
+                $error_message = 'Gambar planet wajib diunggah!';
+            } else {
+                $insert_query = "INSERT INTO planetarium (name, image, type, diameter, mass, distance, temperature, orbit_period, moons, gravity, day_length, atmosphere, composition, age, description, created_by) 
                             VALUES ('$name', '$image', '$type', '$diameter', '$mass', '$distance', '$temperature', '$orbit_period', '$moons', '$gravity', '$day_length', '$atmosphere', '$composition', '$age', '$description', '$created_by')";
 
-            if (mysqli_query($koneksi, $insert_query)) {
-                $planet_id = mysqli_insert_id($koneksi);
+                if (mysqli_query($koneksi, $insert_query)) {
+                    $planet_id = mysqli_insert_id($koneksi);
 
-                if (!empty($_POST['planet_facts']) && is_array($_POST['planet_facts'])) {
-                    foreach ($_POST['planet_facts'] as $fact) {
-                        if (!empty($fact)) {
-                            $fact_escaped = mysqli_real_escape_string($koneksi, $fact);
-                            $fact_query = "INSERT INTO planetarium_facts (planet_id, fact) VALUES ('$planet_id', '$fact_escaped')";
-                            mysqli_query($koneksi, $fact_query);
+                    if (!empty($_POST['planet_facts']) && is_array($_POST['planet_facts'])) {
+                        foreach ($_POST['planet_facts'] as $fact) {
+                            if (!empty($fact)) {
+                                $fact_escaped = mysqli_real_escape_string($koneksi, $fact);
+                                $fact_query = "INSERT INTO planetarium_facts (planet_id, fact) VALUES ('$planet_id', '$fact_escaped')";
+                                mysqli_query($koneksi, $fact_query);
+                            }
                         }
                     }
-                }
 
-                $success_message = "Planetarium '{$name}' berhasil ditambahkan!";
-            } else {
-                $error_message = "Error: " . mysqli_error($koneksi);
+                    $success_message = "Planetarium '{$name}' berhasil ditambahkan!";
+                } else {
+                    $error_message = "Error: " . mysqli_error($koneksi);
+                }
             }
         } else {
             $error_message = "Nama planetarium dan deskripsi harus diisi!";
@@ -164,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
 
-                        <form method="POST" id="planetariumForm">
+                        <form method="POST" id="planetariumForm" enctype="multipart/form-data">
                             <input type="hidden" name="action" value="add_planetarium">
 
                             <div class="form-group">
@@ -174,8 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Nama File Gambar *</label>
-                                    <input type="text" name="planet_image" placeholder="Contoh: mars.png" required>
+                                    <label>Unggah Gambar *</label>
+                                    <input type="file" name="planet_image" accept=".jpg,.jpeg,.png,.webp" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Tipe Planetarium *</label>

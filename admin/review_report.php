@@ -10,6 +10,90 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
 $admin_query = "SELECT * FROM login WHERE userId = '{$_SESSION['userId']}'";
 $admin_result = mysqli_query($koneksi, $admin_query);
 $admin_data = mysqli_fetch_assoc($admin_result);
+
+// Ensure announcements table exists
+$create_table_sql = "CREATE TABLE IF NOT EXISTS announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NULL,
+    content TEXT NOT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    start_at TIMESTAMP NULL,
+    end_at TIMESTAMP NULL,
+    created_by INT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES login(userId) ON DELETE SET NULL
+) ENGINE=InnoDB";
+mysqli_query($koneksi, $create_table_sql);
+
+$success = null;
+$error = null;
+
+// Flash messages (PRG pattern)
+if (isset($_SESSION['flash_success'])) {
+    $success = $_SESSION['flash_success'];
+    unset($_SESSION['flash_success']);
+}
+if (isset($_SESSION['flash_error'])) {
+    $error = $_SESSION['flash_error'];
+    unset($_SESSION['flash_error']);
+}
+
+// Handle POST actions BEFORE ANY OUTPUT
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
+    $title = isset($_POST['title']) ? mysqli_real_escape_string($koneksi, $_POST['title']) : null;
+    $content = mysqli_real_escape_string($koneksi, $_POST['content']);
+    $is_active = isset($_POST['is_active']) ? 1 : 0;
+    $start_at = !empty($_POST['start_at']) ? mysqli_real_escape_string($koneksi, $_POST['start_at']) : null;
+    $end_at = !empty($_POST['end_at']) ? mysqli_real_escape_string($koneksi, $_POST['end_at']) : null;
+
+    if ($is_active) {
+        mysqli_query($koneksi, "UPDATE announcements SET is_active = 0");
+    }
+
+    $insert_sql = sprintf(
+        "INSERT INTO announcements(title, content, is_active, start_at, end_at, created_by) VALUES(%s, '%s', %d, %s, %s, %d)",
+        $title ? "'" . $title . "'" : "NULL",
+        $content,
+        $is_active,
+        $start_at ? "'" . $start_at . "'" : "NULL",
+        $end_at ? "'" . $end_at . "'" : "NULL",
+        intval($_SESSION['userId'])
+    );
+
+    if (mysqli_query($koneksi, $insert_sql)) {
+        $_SESSION['flash_success'] = "Announcement created";
+        header("Location: review_report.php");
+        exit;
+    } else {
+        $error = "Failed: " . mysqli_error($koneksi);
+    }
+}
+
+// Handle GET actions
+if (isset($_GET['action']) && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    if ($_GET['action'] === 'activate') {
+        mysqli_query($koneksi, "UPDATE announcements SET is_active = 0");
+        mysqli_query($koneksi, "UPDATE announcements SET is_active = 1 WHERE id = $id");
+        $success = "Announcement activated";
+    } elseif ($_GET['action'] === 'deactivate') {
+        mysqli_query($koneksi, "UPDATE announcements SET is_active = 0 WHERE id = $id");
+        $success = "Announcement deactivated";
+    } elseif ($_GET['action'] === 'delete') {
+        mysqli_query($koneksi, "DELETE FROM announcements WHERE id = $id");
+        $success = "Announcement deleted";
+    }
+}
+
+// Fetch data
+$active_sql = "SELECT * FROM announcements WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
+$active_result = mysqli_query($koneksi, $active_sql);
+$active = mysqli_fetch_assoc($active_result);
+
+$list_sql = "SELECT * FROM announcements ORDER BY created_at DESC LIMIT 100";
+$list_result = mysqli_query($koneksi, $list_sql);
+$announcements = mysqli_fetch_all($list_result, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -66,91 +150,6 @@ $admin_data = mysqli_fetch_assoc($admin_result);
                     <a href="edit_profile.php" class="edit-profile-link">edit profile</a>
                 </div>
             </div>
-
-            <?php
-            // Ensure announcements table exists
-            $create_table_sql = "CREATE TABLE IF NOT EXISTS announcements (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                title VARCHAR(100) NULL,
-                content TEXT NOT NULL,
-                is_active TINYINT(1) NOT NULL DEFAULT 1,
-                start_at TIMESTAMP NULL,
-                end_at TIMESTAMP NULL,
-                created_by INT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                FOREIGN KEY (created_by) REFERENCES login(userId) ON DELETE SET NULL
-            ) ENGINE=InnoDB";
-            mysqli_query($koneksi, $create_table_sql);
-
-            $success = null;
-            $error = null;
-
-            // Flash messages (PRG pattern)
-            if (isset($_SESSION['flash_success'])) {
-                $success = $_SESSION['flash_success'];
-                unset($_SESSION['flash_success']);
-            }
-            if (isset($_SESSION['flash_error'])) {
-                $error = $_SESSION['flash_error'];
-                unset($_SESSION['flash_error']);
-            }
-
-            // Handle actions
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
-                $title = isset($_POST['title']) ? mysqli_real_escape_string($koneksi, $_POST['title']) : null;
-                $content = mysqli_real_escape_string($koneksi, $_POST['content']);
-                $is_active = isset($_POST['is_active']) ? 1 : 0;
-                $start_at = !empty($_POST['start_at']) ? mysqli_real_escape_string($koneksi, $_POST['start_at']) : null;
-                $end_at = !empty($_POST['end_at']) ? mysqli_real_escape_string($koneksi, $_POST['end_at']) : null;
-
-                if ($is_active) {
-                    mysqli_query($koneksi, "UPDATE announcements SET is_active = 0");
-                }
-
-                $insert_sql = sprintf(
-                    "INSERT INTO announcements(title, content, is_active, start_at, end_at, created_by) VALUES(%s, '%s', %d, %s, %s, %d)",
-                    $title ? "'" . $title . "'" : "NULL",
-                    $content,
-                    $is_active,
-                    $start_at ? "'" . $start_at . "'" : "NULL",
-                    $end_at ? "'" . $end_at . "'" : "NULL",
-                    intval($_SESSION['userId'])
-                );
-
-                if (mysqli_query($koneksi, $insert_sql)) {
-                    $_SESSION['flash_success'] = "Announcement created";
-                    header("Location: review_report.php");
-                    exit;
-                } else {
-                    $error = "Failed: " . mysqli_error($koneksi);
-                }
-            }
-
-            if (isset($_GET['action']) && isset($_GET['id'])) {
-                $id = intval($_GET['id']);
-                if ($_GET['action'] === 'activate') {
-                    mysqli_query($koneksi, "UPDATE announcements SET is_active = 0");
-                    mysqli_query($koneksi, "UPDATE announcements SET is_active = 1 WHERE id = $id");
-                    $success = "Announcement activated";
-                } elseif ($_GET['action'] === 'deactivate') {
-                    mysqli_query($koneksi, "UPDATE announcements SET is_active = 0 WHERE id = $id");
-                    $success = "Announcement deactivated";
-                } elseif ($_GET['action'] === 'delete') {
-                    mysqli_query($koneksi, "DELETE FROM announcements WHERE id = $id");
-                    $success = "Announcement deleted";
-                }
-            }
-
-            // Fetch data
-            $active_sql = "SELECT * FROM announcements WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
-            $active_result = mysqli_query($koneksi, $active_sql);
-            $active = mysqli_fetch_assoc($active_result);
-
-            $list_sql = "SELECT * FROM announcements ORDER BY created_at DESC LIMIT 100";
-            $list_result = mysqli_query($koneksi, $list_sql);
-            $announcements = mysqli_fetch_all($list_result, MYSQLI_ASSOC);
-            ?>
 
             <div class="content-area">
                 <?php if ($success): ?>

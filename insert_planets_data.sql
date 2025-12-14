@@ -1,4 +1,3 @@
--- Insert all planets data into database
 USE project;
 
 -- Clear existing planet data

@@ -336,6 +336,10 @@
   font-weight: 500;
 }
 
+.item-status {
+  font-family: "Ubuntu Mono Regular", monospace;
+}
+
 .update-content-page .item-status.active {
   background: rgba(76, 175, 80, 0.3);
   color: #4caf50;

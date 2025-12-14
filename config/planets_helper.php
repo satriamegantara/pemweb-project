@@ -3,8 +3,9 @@
 
 function getPlanets($koneksi)
 {
-    // Coba ambil dari database
-    $query = "SELECT * FROM planetarium WHERE is_active = 1 ORDER BY name ASC";
+    // Coba ambil dari database - diurutkan sesuai orbit dari Matahari
+    $query = "SELECT * FROM planetarium WHERE is_active = 1 
+              ORDER BY FIELD(name, 'sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'celester')";
     $result = mysqli_query($koneksi, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
