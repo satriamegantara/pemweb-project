@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../config/koneksi.php");
 
 if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
     header("Location: ../auth/login.php");
@@ -11,58 +12,37 @@ if ($_SESSION['role'] !== 'user') {
     exit;
 }
 
-$achievements = [
-    [
-        'title' => 'Explorer',
-        'description' => 'Kunjungi halaman planet dan baca detailnya.',
-        'progress' => 0.7,
-        'progress_label' => '14 / 20 kunjungan planet',
-        'status' => 'Silver Pathfinder',
-        'target' => 'Kunjungi 20 halaman planet',
-        'accent' => '#ff9f43',
-        'code' => 'EXP'
-    ],
-    [
-        'title' => 'Quiz Master',
-        'description' => 'Selesaikan kuis dengan skor tinggi secara konsisten.',
-        'progress' => 0.6,
-        'progress_label' => '3 / 5 skor >= 80%',
-        'status' => 'Bronze Scholar',
-        'target' => 'Raih 5 skor >= 80%',
-        'accent' => '#7dd87d',
-        'code' => 'QM'
-    ],
-    [
-        'title' => 'Streak Keeper',
-        'description' => 'Pertahankan kebiasaan belajar setiap hari.',
-        'progress' => 0.5,
-        'progress_label' => '5 / 10 hari berturut-turut',
-        'status' => 'On Track',
-        'target' => 'Capai 10 hari beruntun',
-        'accent' => '#6ac8ff',
-        'code' => 'STK'
-    ],
-    [
-        'title' => 'Completionist',
-        'description' => 'Tuntaskan seluruh materi utama di planetarium.',
-        'progress' => 0.4,
-        'progress_label' => '8 / 20 modul selesai',
-        'status' => 'Collector',
-        'target' => 'Selesaikan 20 modul',
-        'accent' => '#c7a6ff',
-        'code' => 'CMP'
-    ],
-    [
-        'title' => 'Speed Learner',
-        'description' => 'Selesaikan kuis cepat tanpa banyak kesalahan.',
-        'progress' => 0.55,
-        'progress_label' => 'Rata-rata 55 detik, akurasi 90%',
-        'status' => 'Swift Runner',
-        'target' => 'Kuasai < 50 detik, akurasi 95%',
-        'accent' => '#ff89c0',
-        'code' => 'SPD'
-    ],
-];
+$userId = isset($_SESSION['userId']) ? (int) $_SESSION['userId'] : 0;
+
+// Fetch achievements and user progress from DB (fallback to empty)
+$achievements = [];
+
+$sql = "
+    SELECT a.code, a.title, a.description, a.target_label, a.accent,
+           up.progress_value, up.progress_label, up.status_label
+    FROM achievements a
+    LEFT JOIN user_achievement_progress up
+      ON up.achievement_code = a.code AND up.user_id = $userId
+    WHERE a.is_active = 1
+    ORDER BY a.id ASC
+";
+
+if ($result = mysqli_query($koneksi, $sql)) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $progress = isset($row['progress_value']) ? (float) $row['progress_value'] : 0.0;
+        $achievements[] = [
+            'title' => $row['title'],
+            'description' => $row['description'],
+            'progress' => $progress,
+            'progress_label' => $row['progress_label'] ?: '-',
+            'status' => $row['status_label'] ?: '-',
+            'target' => $row['target_label'],
+            'accent' => $row['accent'],
+            'code' => $row['code']
+        ];
+    }
+    mysqli_free_result($result);
+}
 
 $total_achievements = count($achievements);
 $completed_count = 0;
@@ -79,8 +59,8 @@ foreach ($achievements as $item) {
 $average_progress = $total_achievements > 0 ? $progress_sum / $total_achievements : 0;
 $overall_percent = (int) round($average_progress * 100);
 $completion_label = $total_achievements > 0 ? $completed_count . ' / ' . $total_achievements : '0';
-$next_goal = 'Fokus selesaikan Explorer untuk lencana berikutnya.';
-$next_goal_title = 'Explorer';
+$next_goal = 'Fokus selesaikan pencapaian berikutnya.';
+$next_goal_title = $total_achievements > 0 ? $achievements[0]['title'] : '-';
 
 foreach ($achievements as $item) {
     $value = max(0, min(1, (float) ($item['progress'] ?? 0)));
@@ -106,14 +86,6 @@ if ($completed_count === $total_achievements && $total_achievements > 0) {
     <title>Achievement - Galaxy Explorer</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/achievement.css">
-    <style>
-        .inner-shadow {
-            font-family: "Star Jedi", sans-serif;
-            color: #000;
-            font-size: 28px;
-            margin-top: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -175,8 +147,7 @@ if ($completed_count === $total_achievements && $total_achievements > 0) {
                 <article class="achievement-card"
                     style="--accent: <?php echo htmlspecialchars($achievement['accent']); ?>;">
                     <header class="card-header">
-                        <h2 class="card-title"><?php echo htmlspecialchars($achievement['title']); ?></h2>
-                        <span class="status-badge"><?php echo htmlspecialchars($achievement['status']); ?></span>
+                        <h2 class="card-title inner-shadow"><?php echo htmlspecialchars($achievement['title']); ?></h2>
                     </header>
                     <div class="card-body">
                         <p class="card-desc"><?php echo htmlspecialchars($achievement['description']); ?></p>

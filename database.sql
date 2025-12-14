@@ -78,6 +78,43 @@ CREATE TABLE IF NOT EXISTS planet_history (
 INSERT INTO login (email, username, password, role) 
 VALUES ('admin@galaxy.com', 'admin', 'admin123', 'admin');
 
--- Insert sample regular user
-INSERT INTO login (email, username, password, role) 
-VALUES ('user@galaxy.com', 'user', 'user123', 'user');
+CREATE TABLE IF NOT EXISTS achievements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(16) NOT NULL UNIQUE, -- EXP, QM, STK, CMP, SPD
+    title VARCHAR(64) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    target_label VARCHAR(128) NOT NULL,
+    accent VARCHAR(16) NOT NULL DEFAULT '#8bc6ff',
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_achievement_progress (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    achievement_code VARCHAR(16) NOT NULL,
+    progress_value DECIMAL(5,2) NOT NULL DEFAULT 0.00, -- 0.00 to 1.00
+    progress_label VARCHAR(128) NOT NULL,              -- e.g., "14 / 20 kunjungan planet"
+    status_label VARCHAR(64) NOT NULL,                 -- e.g., "Silver Pathfinder"
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES login(userId) ON DELETE CASCADE,
+    FOREIGN KEY (achievement_code) REFERENCES achievements(code) ON DELETE CASCADE,
+    UNIQUE KEY uniq_user_code (user_id, achievement_code)
+);
+
+CREATE TABLE IF NOT EXISTS quiz_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    score_percent INT NOT NULL,
+    duration_seconds INT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES login(userId) ON DELETE CASCADE,
+    INDEX idx_user_time (user_id, created_at)
+);
+
+INSERT IGNORE INTO achievements (code, title, description, target_label, accent) VALUES
+('EXP','Explorer','Kunjungi halaman planet dan baca detailnya.','Kunjungi 20 halaman planet','#ff9f43'),
+('QM','Quiz Master','Selesaikan kuis dengan skor tinggi secara konsisten.','Raih 5 skor >= 80%','#7dd87d'),
+('STK','Streak Keeper','Pertahankan kebiasaan belajar setiap hari.','Capai 10 hari beruntun','#6ac8ff'),
+('CMP','Completionist','Tuntaskan seluruh materi utama di planetarium.','Selesaikan 20 modul','#c7a6ff'),
+('SPD','Speed Learner','Selesaikan kuis cepat tanpa banyak kesalahan.','Kuasai < 50 detik, akurasi 95%','#ff89c0');

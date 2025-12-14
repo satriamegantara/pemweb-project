@@ -41,6 +41,7 @@
 
 .btn-delete,
 .btn-activate {
+  text-decoration: none;
   font-size: 11px !important;
   padding: 6px 10px !important;
   white-space: nowrap;
@@ -292,6 +293,7 @@ textarea.form-control {
 }
 
 .btn-activate {
+  text-decoration: none;
   padding: 8px 12px;
   background: linear-gradient(
     135deg,
