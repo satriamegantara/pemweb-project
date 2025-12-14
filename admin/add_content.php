@@ -15,6 +15,11 @@ $success_message = "";
 $error_message = "";
 $action = "";
 
+// Check for success message from redirect
+if (isset($_GET['success'])) {
+    $success_message = "✓ Soal quiz berhasil ditambahkan!";
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
@@ -53,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                $success_message = "✓ Planetarium '{$name}' berhasil ditambahkan!";
+                $success_message = "Planetarium '{$name}' berhasil ditambahkan!";
             } else {
-                $error_message = "✗ Error: " . mysqli_error($koneksi);
+                $error_message = "Error: " . mysqli_error($koneksi);
             }
         } else {
-            $error_message = "✗ Nama planetarium dan deskripsi harus diisi!";
+            $error_message = "Nama planetarium dan deskripsi harus diisi!";
         }
     } elseif ($action === 'add_quiz') {
         $question = mysqli_real_escape_string($koneksi, $_POST['quiz_question']);
@@ -67,19 +72,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $option_c = mysqli_real_escape_string($koneksi, $_POST['quiz_option_c']);
         $option_d = mysqli_real_escape_string($koneksi, $_POST['quiz_option_d']);
         $correct_option = mysqli_real_escape_string($koneksi, $_POST['quiz_correct']);
-        $created_by = $_SESSION['userId'];
 
         if (!empty($question) && !empty($option_a) && !empty($option_b) && !empty($option_c) && !empty($option_d)) {
-            $insert_query = "INSERT INTO quiz_questions (question, option_a, option_b, option_c, option_d, correct_option, created_by) 
-                            VALUES ('$question', '$option_a', '$option_b', '$option_c', '$option_d', '$correct_option', '$created_by')";
+            $insert_query = "INSERT INTO quiz_questions (question, option_a, option_b, option_c, option_d, correct_option) 
+                            VALUES ('$question', '$option_a', '$option_b', '$option_c', '$option_d', '$correct_option')";
 
             if (mysqli_query($koneksi, $insert_query)) {
-                $success_message = "✓ Soal quiz berhasil ditambahkan!";
+                $success_message = "Soal quiz berhasil ditambahkan!";
+                header("Location: add_content.php?success=1");
+                exit;
             } else {
-                $error_message = "✗ Error: " . mysqli_error($koneksi);
+                $error_message = "Error: " . mysqli_error($koneksi);
             }
         } else {
-            $error_message = "✗ Semua field soal quiz harus diisi!";
+            $error_message = "Semua field soal quiz harus diisi!";
         }
     }
 }
@@ -111,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href="edit_profile.php"><i class="fas fa-user-edit"></i> edit profile</a></li>
                 <li><a href="add_content.php" class="active"><i class="fas fa-plus-circle"></i> add content</a></li>
                 <li><a href="update_content.php"><i class="fas fa-edit"></i> update content</a></li>
-                <li><a href="verify_user.php"><i class="fas fa-check-circle"></i> verify user</a></li>
-                <li><a href="review_report.php"><i class="fas fa-file-alt"></i> review report</a></li>
+                <li><a href="user_management.php"><i class="fas fa-users"></i> user management</a></li>
+                <li><a href="review_report.php"><i class="fas fa-bullhorn"></i> announcement</a></li>
             </ul>
 
             <div class="sidebar-footer">
@@ -150,12 +156,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <?php if ($action === 'add_planetarium' && $success_message): ?>
                             <div class="message-box success show">
-                                <i class="fas fa-check-circle"></i>
                                 <span><?php echo $success_message; ?></span>
                             </div>
                         <?php elseif ($action === 'add_planetarium' && $error_message): ?>
                             <div class="message-box error show">
-                                <i class="fas fa-exclamation-circle"></i>
                                 <span><?php echo $error_message; ?></span>
                             </div>
                         <?php endif; ?>
@@ -273,12 +277,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <?php if ($action === 'add_quiz' && $success_message): ?>
                             <div class="message-box success show">
-                                <i class="fas fa-check-circle"></i>
                                 <span><?php echo $success_message; ?></span>
                             </div>
                         <?php elseif ($action === 'add_quiz' && $error_message): ?>
                             <div class="message-box error show">
-                                <i class="fas fa-exclamation-circle"></i>
                                 <span><?php echo $error_message; ?></span>
                             </div>
                         <?php endif; ?>

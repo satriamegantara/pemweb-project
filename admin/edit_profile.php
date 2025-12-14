@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><a href="edit_profile.php" class="active"><i class="fas fa-user-edit"></i> edit profile</a></li>
                 <li><a href="add_content.php"><i class="fas fa-plus-circle"></i> add content</a></li>
                 <li><a href="update_content.php"><i class="fas fa-edit"></i> update content</a></li>
-                <li><a href="verify_user.php"><i class="fas fa-check-circle"></i> verify user</a></li>
-                <li><a href="review_report.php"><i class="fas fa-file-alt"></i> review report</a></li>
+                <li><a href="user_management.php"><i class="fas fa-users"></i> user management</a></li>
+                <li><a href="review_report.php"><i class="fas fa-bullhorn"></i> announcement</a></li>
             </ul>
 
             <div class="sidebar-footer">

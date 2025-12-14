@@ -11,8 +11,13 @@ $admin_query = "SELECT * FROM login WHERE userId = '{$_SESSION['userId']}'";
 $admin_result = mysqli_query($koneksi, $admin_query);
 $admin_data = mysqli_fetch_assoc($admin_result);
 
-$success_message = "";
-$error_message = "";
+// Initialize success and error messages from session if available
+$success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : "";
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : "";
+
+// Clear session messages after retrieving them
+unset($_SESSION['success_message']);
+unset($_SESSION['error_message']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'delete_planet' && isset($_POST['planet_id'])) {
@@ -25,18 +30,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hapus planet
         $delete_planet = "DELETE FROM planetarium WHERE id = $planet_id";
         if (mysqli_query($koneksi, $delete_planet)) {
-            $success_message = "✓ Planetarium berhasil dihapus!";
+            $_SESSION['success_message'] = "Planetarium berhasil dihapus!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         } else {
-            $error_message = "✗ Gagal menghapus planetarium!";
+            $_SESSION['error_message'] = "Gagal menghapus planetarium!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         }
     } elseif (isset($_POST['action']) && $_POST['action'] === 'delete_quiz' && isset($_POST['quiz_id'])) {
         $quiz_id = intval($_POST['quiz_id']);
         $delete_quiz = "DELETE FROM quiz_questions WHERE id = $quiz_id";
 
         if (mysqli_query($koneksi, $delete_quiz)) {
-            $success_message = "✓ Soal quiz berhasil dihapus!";
+            $_SESSION['success_message'] = "Soal quiz berhasil dihapus!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         } else {
-            $error_message = "✗ Gagal menghapus soal quiz!";
+            $_SESSION['error_message'] = "Gagal menghapus soal quiz!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         }
     } elseif (isset($_POST['action']) && $_POST['action'] === 'toggle_planet' && isset($_POST['planet_id'])) {
         $planet_id = intval($_POST['planet_id']);
@@ -51,26 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (mysqli_query($koneksi, $update_query)) {
             $status_text = $new_status == 1 ? "diaktifkan" : "dinonaktifkan";
-            $success_message = "✓ Planetarium berhasil $status_text!";
+            $_SESSION['success_message'] = "Planetarium berhasil $status_text!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         } else {
-            $error_message = "✗ Gagal mengubah status planetarium!";
-        }
-    } elseif (isset($_POST['action']) && $_POST['action'] === 'toggle_quiz' && isset($_POST['quiz_id'])) {
-        $quiz_id = intval($_POST['quiz_id']);
-
-        // Get current status
-        $check_query = "SELECT is_active FROM quiz_questions WHERE id = $quiz_id";
-        $check_result = mysqli_query($koneksi, $check_query);
-        $quiz = mysqli_fetch_assoc($check_result);
-
-        $new_status = $quiz['is_active'] == 1 ? 0 : 1;
-        $update_query = "UPDATE quiz_questions SET is_active = $new_status WHERE id = $quiz_id";
-
-        if (mysqli_query($koneksi, $update_query)) {
-            $status_text = $new_status == 1 ? "diaktifkan" : "dinonaktifkan";
-            $success_message = "✓ Soal quiz berhasil $status_text!";
-        } else {
-            $error_message = "✗ Gagal mengubah status soal quiz!";
+            $_SESSION['error_message'] = "Gagal mengubah status planetarium!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
         }
     }
 }
@@ -78,10 +78,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Get all planetariums
 $planets_query = "SELECT * FROM planetarium ORDER BY created_at DESC";
 $planets_result = mysqli_query($koneksi, $planets_query);
+$planets_data = [];
+while ($planet = mysqli_fetch_assoc($planets_result)) {
+    $planets_data[] = $planet;
+}
 
 // Get all quiz questions
 $quiz_query = "SELECT * FROM quiz_questions ORDER BY created_at DESC";
 $quiz_result = mysqli_query($koneksi, $quiz_query);
+$quiz_data = [];
+while ($quiz = mysqli_fetch_assoc($quiz_result)) {
+    $quiz_data[] = $quiz;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -110,8 +118,8 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
                 <li><a href="edit_profile.php"><i class="fas fa-user-edit"></i> edit profile</a></li>
                 <li><a href="add_content.php"><i class="fas fa-plus-circle"></i> add content</a></li>
                 <li><a href="update_content.php" class="active"><i class="fas fa-edit"></i> update content</a></li>
-                <li><a href="verify_user.php"><i class="fas fa-check-circle"></i> verify user</a></li>
-                <li><a href="review_report.php"><i class="fas fa-file-alt"></i> review report</a></li>
+                <li><a href="user_management.php"><i class="fas fa-users"></i> user management</a></li>
+                <li><a href="review_report.php"><i class="fas fa-bullhorn"></i> announcement</a></li>
             </ul>
 
             <div class="sidebar-footer">
@@ -146,30 +154,24 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
                 <div class="content-container">
                     <?php if ($success_message): ?>
                         <div class="message-box success show">
-                            <i class="fas fa-check-circle"></i>
                             <span><?php echo $success_message; ?></span>
                         </div>
                     <?php elseif ($error_message): ?>
                         <div class="message-box error show">
-                            <i class="fas fa-exclamation-circle"></i>
                             <span><?php echo $error_message; ?></span>
                         </div>
                     <?php endif; ?>
 
                     <div class="tabs">
-                        <button class="tab-button active" onclick="switchTab('planets')">
-                            <i class="fas fa-planet"></i> Planetarium
-                        </button>
-                        <button class="tab-button" onclick="switchTab('quizzes')">
-                            <i class="fas fa-question-circle"></i> Quiz
-                        </button>
+                        <button class="tab-button active" onclick="switchTab('planets')">Planetarium</button>
+                        <button class="tab-button" onclick="switchTab('quizzes')">Quiz</button>
                     </div>
 
                     <!-- PLANETS TAB -->
                     <div id="planets" class="tab-content active">
-                        <?php if (mysqli_num_rows($planets_result) > 0): ?>
+                        <?php if (count($planets_data) > 0): ?>
                             <div class="items-grid">
-                                <?php while ($planet = mysqli_fetch_assoc($planets_result)): ?>
+                                <?php foreach ($planets_data as $planet): ?>
                                     <div class="item-card">
                                         <div class="item-header">
                                             <div>
@@ -210,7 +212,7 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
                                             </form>
                                         </div>
                                     </div>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </div>
                         <?php else: ?>
                             <div class="empty-state">
@@ -224,17 +226,14 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
 
                     <!-- QUIZZES TAB -->
                     <div id="quizzes" class="tab-content">
-                        <?php if (mysqli_num_rows($quiz_result) > 0): ?>
+                        <?php if (count($quiz_data) > 0): ?>
                             <div class="items-grid">
-                                <?php while ($quiz = mysqli_fetch_assoc($quiz_result)): ?>
+                                <?php foreach ($quiz_data as $quiz): ?>
                                     <div class="item-card">
                                         <div class="item-header">
                                             <div>
                                                 <h3 class="item-title">Soal #<?php echo $quiz['id']; ?></h3>
                                             </div>
-                                            <span class="item-status <?php echo $quiz['is_active'] ? 'active' : 'inactive'; ?>">
-                                                <?php echo $quiz['is_active'] ? 'Aktif' : 'Nonaktif'; ?>
-                                            </span>
                                         </div>
 
                                         <div class="item-description">
@@ -253,19 +252,12 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
                                             <div
                                                 style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
                                                 <span class="quiz-option correct">
-                                                    Jawaban Benar: <strong><?php echo $quiz['correct_option']; ?></strong>
+                                                    Jawaban Benar: <strong><?php echo $quiz['correct_answer']; ?></strong>
                                                 </span>
                                             </div>
                                         </div>
 
                                         <div class="item-actions" style="margin-top: 15px;">
-                                            <form method="POST" style="flex: 1;">
-                                                <input type="hidden" name="action" value="toggle_quiz">
-                                                <input type="hidden" name="quiz_id" value="<?php echo $quiz['id']; ?>">
-                                                <button type="submit" class="btn-action btn-toggle">
-                                                    <?php echo $quiz['is_active'] ? '⊘ Nonaktifkan' : '✓ Aktifkan'; ?>
-                                                </button>
-                                            </form>
                                             <form method="POST" style="flex: 1;"
                                                 onsubmit="return confirm('Yakin hapus soal ini?');">
                                                 <input type="hidden" name="action" value="delete_quiz">
@@ -276,11 +268,10 @@ $quiz_result = mysqli_query($koneksi, $quiz_query);
                                             </form>
                                         </div>
                                     </div>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </div>
                         <?php else: ?>
                             <div class="empty-state">
-                                <i class="fas fa-question-circle"></i>
                                 <h3>Belum ada soal quiz</h3>
                                 <p>Mulai dengan <a href="add_content.php" style="color: #d4af37;">menambah soal quiz
                                         baru</a></p>

@@ -1,8 +1,16 @@
 :root {
 }
 
+@font-face {
+  font-family: "Ubuntu Mono Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("../fonts/Ubuntu Mono Regular.woff");
+}
+
 .add-content-page .message-box,
 .update-content-page .message-box {
+  font-family: "Ubuntu Mono Regular", monospace;
   padding: 15px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -82,7 +90,7 @@
 }
 
 .add-content-page .form-group label {
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu", sans-serif;
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
@@ -93,7 +101,7 @@
 .add-content-page .form-group input,
 .add-content-page .form-group textarea,
 .add-content-page .form-group select {
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu", sans-serif;
   width: 100%;
   padding: 12px;
   background: rgba(255, 255, 255, 0.05);
@@ -107,13 +115,13 @@
 .add-content-page textarea::placeholder,
 .update-content-page input::placeholder,
 .update-content-page textarea::placeholder {
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .add-content-page .form-group input:focus,
 .add-content-page .form-group textarea:focus,
 .add-content-page .form-group select:focus {
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu", sans-serif;
   outline: none;
   border-color: #d4af37;
   background: rgba(255, 255, 255, 0.08);
@@ -121,7 +129,7 @@
 }
 
 .add-content-page .form-group textarea {
-  font-family: "Ubuntu Mono Regular", monospace;
+  font-family: "Ubuntu", sans-serif;
   resize: vertical;
   min-height: 80px;
 }
@@ -156,7 +164,7 @@
 }
 
 .add-content-page .fact-input-group .btn-remove {
-  font-family: "Ubuntu Mono Sans", monospace;
+  font-family: "Ubuntu", sans-serif;
   background: rgba(255, 76, 76, 0.3);
   border: 1px solid rgba(255, 76, 76, 0.5);
   color: #ff4c4c;
@@ -188,7 +196,7 @@
 }
 
 .add-content-page .btn-submit {
-  font-family: "Ubuntu Mono Sans", monospace;
+  font-family: "Ubuntu Mono Regular", monospace;
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #d4af37, #c3770c);
@@ -251,6 +259,7 @@
   border-radius: 10px;
   transition: all 0.3s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .tab-button.active {
@@ -309,12 +318,14 @@
   font-weight: 600;
   color: #d4af37;
   margin: 0;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .item-type {
   font-size: 12px;
   color: #aaa;
   margin-top: 5px;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .item-status {
@@ -339,18 +350,22 @@
   margin-bottom: 15px;
   font-size: 13px;
   line-height: 1.6;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .item-info p {
   margin: 5px 0;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .item-info label {
   color: #d4af37;
   font-weight: 500;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .item-description {
+  font-family: "Ubuntu Mono Regular", monospace;
   max-height: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -375,29 +390,52 @@
   font-size: 12px;
   font-weight: 500;
   transition: all 0.3s ease;
+  font-family: "Ubuntu Mono Regular", monospace;
 }
 
 .update-content-page .btn-toggle {
-  background: rgba(212, 175, 55, 0.2);
-  border: 1px solid rgba(212, 175, 55, 0.5);
-  color: #d4af37;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.7),
+    rgba(184, 148, 44, 0.85)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  color: #fff;
 }
 
 .update-content-page .btn-toggle:hover {
-  background: rgba(212, 175, 55, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.9),
+    rgba(184, 148, 44, 1)
+  );
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
 }
 
 .update-content-page .btn-delete {
-  background: rgba(244, 67, 54, 0.2);
-  border: 1px solid rgba(244, 67, 54, 0.5);
-  color: #f44336;
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.8),
+    rgba(185, 28, 28, 0.9)
+  );
+  border: 1px solid rgba(220, 53, 69, 0.6);
+  border-radius: 8px;
+  color: #fff;
 }
 
 .update-content-page .btn-delete:hover {
-  background: rgba(244, 67, 54, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.95),
+    rgba(185, 28, 28, 1)
+  );
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+  transform: translateY(-2px);
 }
 
 .update-content-page .empty-state {
+  font-family: "Ubuntu Mono Regular", monospace;
   text-align: center;
   padding: 60px 20px;
   color: #888;
@@ -423,7 +461,7 @@
   display: block;
   width: 100%;
   text-align: left;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Ubuntu Mono Regular", monospace;
   color: #fff;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.18);

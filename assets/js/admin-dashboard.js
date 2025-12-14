@@ -2,14 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.getElementById("menuToggle");
   const sidebar = document.getElementById("sidebar");
   const mainContent = document.querySelector(".main-content");
-  let sidebarOpen = false;
+
+  const savedState = localStorage.getItem("adminSidebarOpen");
+  let sidebarOpen = savedState === "true";
 
   sidebar.classList.add("no-anim");
   mainContent.classList.add("no-anim");
 
   if (window.innerWidth > 768) {
-    sidebar.classList.add("closed");
-    mainContent.classList.add("sidebar-closed");
+    if (sidebarOpen) {
+      sidebar.classList.remove("closed");
+      mainContent.classList.remove("sidebar-closed");
+    } else {
+      sidebar.classList.add("closed");
+      mainContent.classList.add("sidebar-closed");
+    }
   } else {
     sidebar.classList.remove("active");
   }
@@ -22,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
   menuToggle.addEventListener("click", function (e) {
     e.stopPropagation();
     sidebarOpen = !sidebarOpen;
+
+    // Save state to localStorage
+    localStorage.setItem("adminSidebarOpen", sidebarOpen);
 
     if (window.innerWidth > 768) {
       if (sidebarOpen) {

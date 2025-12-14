@@ -25,9 +25,8 @@ function fetchQuizQuestions(mysqli $koneksi): array
             option_b,
             option_c,
             option_d,
-            correct_option
+            correct_answer
         FROM quiz_questions
-        WHERE is_active = 1
         ORDER BY RAND()
         LIMIT 10
     ";
@@ -41,8 +40,8 @@ function fetchQuizQuestions(mysqli $koneksi): array
                 $row['option_d']
             ];
 
-            // Map correct_option (A-D) to index 0-3
-            $correctIndex = ['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3][$row['correct_option']] ?? 0;
+            // Map correct_answer (A-D) to index 0-3
+            $correctIndex = ['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3][$row['correct_answer']] ?? 0;
 
             $questions[] = [
                 'id' => (int) $row['id'],

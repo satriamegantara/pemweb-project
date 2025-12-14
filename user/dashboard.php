@@ -46,8 +46,8 @@ if ($_SESSION['role'] !== 'user') {
                 <img src="../assets/images/planets/earth.webp" alt="Earth">
                 <span class="planet-caption">Profile</span>
             </div>
-            <div class="planet-item" data-name="Jupiter">
-                <img src="../assets/images/planets/mars.webp" alt="Jupiter">
+            <div class="planet-item" onclick="window.location.href='achievement.php'" data-name="Achievement">
+                <img src="../assets/images/planets/mars.webp" alt="Achievement">
                 <span class="planet-caption">Achievement</span>
             </div>
             <div class="planet-item" onclick="window.location.href='quiz.php'" data-name="Neptune">
