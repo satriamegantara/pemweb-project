@@ -152,7 +152,7 @@
             left: 50%;
             bottom: 6vh;
             transform: translateX(-50%);
-            z-index: 120;
+            z-index: 999;
             display: inline-block;
             padding: 16px 40px;
             font-size: 18px;
@@ -167,6 +167,7 @@
             cursor: pointer;
             transition: all 0.4s ease;
             font-family: 'Star Jedi', sans-serif;
+            pointer-events: auto;
         }
 
         .btn-go-back:hover {
@@ -191,9 +192,9 @@
 
         <h1 class="title inner-shadow">Access Denied</h1>
         <p class="subtitle inner-shadow">Please make sure you are logged in with the correct account.</p>
-        <a href="index.php" class="btn-go-back inner-shadow">Back to Home</a>
     </div>
 
+    <a href="index.php" class="btn-go-back inner-shadow">Back to Home</a>
     <img src="assets/images/astronot.webp" class="astronot">
     <img src="assets/images/comet.png" class="asteroid">
 </body>

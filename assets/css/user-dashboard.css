@@ -44,6 +44,7 @@
   padding: 70px 40px 210px;
   flex-wrap: wrap;
   position: relative;
+  gap: 36px;
 }
 
 .welcome-text {
@@ -125,43 +126,83 @@
 
 @media (max-width: 768px) {
   .planet-gallery {
-    padding: 20px;
+    padding: 120px 16px 120px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .planet-item {
+    margin: 0;
   }
 
   .planet-item img {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
   }
 
   .planet-caption {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .planet-item:hover .planet-caption {
     font-size: 14px;
   }
 
-  .planet-item:nth-child(1) {
-    left: 5%;
-    top: 10%;
+  .welcome-text {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    font-size: 32px;
+    margin-bottom: 8px;
   }
 
-  .planet-item:nth-child(2) {
-    left: 20%;
-    top: 30%;
+  .logout-btn,
+  .message-btn {
+    position: fixed;
+    top: 16px;
+    font-size: 16px;
+    padding: 8px 14px;
   }
 
-  .planet-item:nth-child(3) {
-    top: 45%;
+  .logout-btn {
+    right: 16px;
   }
 
-  .planet-item:nth-child(4) {
-    right: 20%;
-    top: 30%;
+  .message-btn {
+    right: 76px;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .planet-gallery {
+    padding-top: 110px;
+    padding-bottom: 100px;
+    gap: 20px;
   }
 
-  .planet-item:nth-child(5) {
-    right: 5%;
-    top: 10%;
+  .welcome-text {
+    font-size: 26px;
+    letter-spacing: 4px;
+  }
+
+  .planet-item img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .logout-btn,
+  .message-btn {
+    top: 14px;
+  }
+
+  .message-btn {
+    right: 68px;
   }
 }

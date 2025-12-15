@@ -490,3 +490,49 @@ body::-webkit-scrollbar {
     width: 180px;
   }
 }
+
+@media (max-width: 640px) {
+  .planet1,
+  .planet2,
+  .planet3,
+  .planet4 {
+    width: 180px;
+    opacity: 0.85;
+  }
+
+  .content {
+    width: 94%;
+    padding: 0 12px;
+  }
+
+  .subtitle {
+    letter-spacing: 3px;
+  }
+}
+
+@media (max-width: 540px) {
+  .planet1,
+  .planet2,
+  .planet3,
+  .planet4 {
+    display: none;
+  }
+
+  .title {
+    font-size: 42px;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+
+  .start-btn {
+    padding: 14px 28px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 320px;
+  }
+}
